@@ -8,9 +8,11 @@ import {
   TouchableOpacity,
   Platform,
   Alert,
+  Linking,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
+import MedicalTheme from '../theme/colors';
 
 interface ContactInfoProps {
   icon: keyof typeof Ionicons.glyphMap;
@@ -22,7 +24,7 @@ interface ContactInfoProps {
 const ContactInfo: React.FC<ContactInfoProps> = ({ icon, label, value, action }) => (
   <TouchableOpacity style={styles.contactInfoItem} onPress={action}>
     <View style={styles.contactIcon}>
-      <Ionicons name={icon} size={24} color="#007AFF" />
+      <Ionicons name={icon} size={24} color="MedicalTheme.primary" />
     </View>
     <View style={styles.contactContent}>
       <Text style={styles.contactLabel}>{label}</Text>
@@ -70,24 +72,59 @@ const ContactScreen: React.FC = () => {
     );
   };
 
+  const handleEmailPress = async () => {
+    const email = 'contact@ctapratique.com';
+    const subject = 'Demande de renseignement';
+    const mailtoUrl = `mailto:${email}?subject=${encodeURIComponent(subject)}`;
+    
+    try {
+      if (Platform.OS === 'web') {
+        window.open(mailtoUrl, '_self');
+      } else {
+        const supported = await Linking.canOpenURL(mailtoUrl);
+        if (supported) {
+          await Linking.openURL(mailtoUrl);
+        } else {
+          Alert.alert('Erreur', 'Impossible d\'ouvrir le client email');
+        }
+      }
+    } catch (error) {
+      Alert.alert('Erreur', 'Impossible d\'ouvrir le client email');
+    }
+  };
+
+  const handlePhonePress = async () => {
+    const phoneNumber = '0673847766';
+    const telUrl = `tel:${phoneNumber}`;
+    
+    try {
+      if (Platform.OS === 'web') {
+        window.open(telUrl, '_self');
+      } else {
+        const supported = await Linking.canOpenURL(telUrl);
+        if (supported) {
+          await Linking.openURL(telUrl);
+        } else {
+          Alert.alert('Erreur', 'Impossible de composer le numéro');
+        }
+      }
+    } catch (error) {
+      Alert.alert('Erreur', 'Impossible de composer le numéro');
+    }
+  };
+
   const contactMethods = [
     {
       icon: 'mail' as const,
       label: 'Email',
       value: 'contact@ctapratique.com',
-      action: () => {
-        // In a real app, this would open the email client
-        Alert.alert('Email', 'Ouverture du client email...');
-      },
+      action: handleEmailPress,
     },
     {
       icon: 'call' as const,
       label: 'Téléphone',
       value: '06.73.84.77.66',
-      action: () => {
-        // In a real app, this would make a phone call
-        Alert.alert('Appel', 'Composition du numéro...');
-      },
+      action: handlePhonePress,
     },
     {
       icon: 'location' as const,
@@ -236,7 +273,7 @@ const ContactScreen: React.FC = () => {
             <View style={styles.citiesGrid}>
               {cities.map((city, index) => (
                 <View key={index} style={styles.cityTag}>
-                  <Ionicons name="location" size={16} color="#007AFF" />
+                  <Ionicons name="location" size={16} color="MedicalTheme.primary" />
                   <Text style={styles.cityText}>{city}</Text>
                 </View>
               ))}
@@ -273,13 +310,13 @@ const ContactScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8f9fa',
+    backgroundColor: MedicalTheme.background,
   },
   scrollContent: {
     paddingBottom: 30,
   },
   header: {
-    backgroundColor: '#007AFF',
+    backgroundColor: MedicalTheme.primary,
     padding: 20,
     alignItems: 'center',
   },
@@ -383,7 +420,7 @@ const styles = StyleSheet.create({
     textAlignVertical: 'top',
   },
   submitButton: {
-    backgroundColor: '#007AFF',
+    backgroundColor: 'MedicalTheme.primary',
     borderRadius: 8,
     padding: 16,
     flexDirection: 'row',
@@ -434,7 +471,7 @@ const styles = StyleSheet.create({
   },
   cityText: {
     fontSize: 14,
-    color: '#007AFF',
+    color: 'MedicalTheme.primary',
     fontWeight: '500',
   },
   citiesNote: {
@@ -475,7 +512,7 @@ const styles = StyleSheet.create({
   statNumber: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#007AFF',
+    color: 'MedicalTheme.primary',
     marginBottom: 5,
   },
   statLabel: {

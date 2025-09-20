@@ -9,6 +9,7 @@ import FormationScreen from './src/screens/FormationScreen';
 import DocumentsScreen from './src/screens/DocumentsScreen';
 import ContactScreen from './src/screens/ContactScreen';
 import ProfileScreen from './src/screens/ProfileScreen';
+import MedicalTheme from './src/theme/colors';
 
 const Tab = createBottomTabNavigator();
 
@@ -37,21 +38,53 @@ export default function App() {
 
             return <Ionicons name={iconName} size={size} color={color} />;
           },
-          tabBarActiveTintColor: '#007AFF',
-          tabBarInactiveTintColor: 'gray',
+          tabBarActiveTintColor: MedicalTheme.primary,
+          tabBarInactiveTintColor: MedicalTheme.textSecondary,
+          tabBarStyle: {
+            backgroundColor: MedicalTheme.surface,
+            borderTopColor: MedicalTheme.border,
+            paddingBottom: 8,
+            paddingTop: 8,
+            height: 60,
+          },
           headerStyle: {
-            backgroundColor: '#f8f9fa',
+            backgroundColor: MedicalTheme.primary,
+            elevation: 4,
+            shadowOpacity: 0.1,
           },
           headerTitleStyle: {
             fontWeight: 'bold',
+            color: MedicalTheme.textOnPrimary,
+            fontSize: 18,
           },
+          headerTintColor: MedicalTheme.textOnPrimary,
         })}
       >
-        <Tab.Screen name="Accueil" component={HomeScreen} />
-        <Tab.Screen name="Formation" component={FormationScreen} />
-        <Tab.Screen name="Documents" component={DocumentsScreen} />
-        <Tab.Screen name="Contact" component={ContactScreen} />
-        <Tab.Screen name="Profil" component={ProfileScreen} />
+        <Tab.Screen 
+          name="Accueil" 
+          component={HomeScreen}
+          options={{ headerTitle: "C ta Pratique" }}
+        />
+        <Tab.Screen 
+          name="Formation" 
+          component={FormationScreen}
+          options={{ headerTitle: "C ta Pratique" }}
+        />
+        <Tab.Screen 
+          name="Documents" 
+          component={DocumentsScreen}
+          options={{ headerTitle: "C ta Pratique" }}
+        />
+        <Tab.Screen 
+          name="Contact" 
+          component={ContactScreen}
+          options={{ headerTitle: "C ta Pratique" }}
+        />
+        <Tab.Screen 
+          name="Profil" 
+          component={ProfileScreen}
+          options={{ headerTitle: "C ta Pratique" }}
+        />
       </Tab.Navigator>
     </NavigationContainer>
   );

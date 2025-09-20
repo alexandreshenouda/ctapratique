@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
+import MedicalTheme from '../theme/colors';
 
 const HomeScreen: React.FC = () => {
   const statistics = [
@@ -24,7 +25,7 @@ const HomeScreen: React.FC = () => {
       subtitle: 'Hygiène & Stérilisation Dentaire',
       description: 'Formation complète en collaboration avec les URPS',
       icon: 'school' as const,
-      color: '#007AFF',
+      color: 'MedicalTheme.primary',
     },
     {
       title: 'Ateliers Pratiques',
@@ -75,7 +76,7 @@ const HomeScreen: React.FC = () => {
             {statistics.map((stat, index) => (
               <View key={index} style={styles.statCard}>
                 <View style={styles.statIconContainer}>
-                  <Ionicons name={stat.icon} size={24} color="#007AFF" />
+                  <Ionicons name={stat.icon} size={24} color="MedicalTheme.primary" />
                 </View>
                 <Text style={styles.statNumber}>{stat.number}</Text>
                 <Text style={styles.statLabel}>{stat.label}</Text>
@@ -119,7 +120,7 @@ const HomeScreen: React.FC = () => {
             {workshops.map((workshop, index) => (
               <View key={index} style={styles.workshopCard}>
                 <View style={styles.workshopIcon}>
-                  <Ionicons name={workshop.icon} size={28} color="#007AFF" />
+                  <Ionicons name={workshop.icon} size={28} color="MedicalTheme.primary" />
                 </View>
                 <Text style={styles.workshopTitle}>{workshop.title}</Text>
               </View>
@@ -129,7 +130,7 @@ const HomeScreen: React.FC = () => {
 
         {/* Quote Section */}
         <View style={styles.quoteSection}>
-          <Ionicons name="quote" size={32} color="#007AFF" style={styles.quoteIcon} />
+          <Ionicons name="quote" size={32} color="MedicalTheme.primary" style={styles.quoteIcon} />
           <Text style={styles.quoteText}>
             "La formation est le moyen le plus sûr de développer et d'améliorer vos compétences et vos connaissances."
           </Text>
@@ -142,16 +143,18 @@ const HomeScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8f9fa',
+    backgroundColor: MedicalTheme.background,
   },
   scrollContent: {
     paddingBottom: 30,
   },
   heroSection: {
-    backgroundColor: '#fff',
+    backgroundColor: MedicalTheme.surface,
     paddingVertical: 40,
     paddingHorizontal: 20,
     alignItems: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: MedicalTheme.border,
     ...Platform.select({
       ios: {
         shadowColor: '#000',
@@ -160,7 +163,7 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
       },
       android: { elevation: 4 },
-      web: { boxShadow: '0 2px 8px rgba(0,0,0,0.1)' },
+      web: { boxShadow: '0 2px 8px rgba(0,0,0,0.08)' },
     }),
   },
   logoContainer: {
@@ -170,29 +173,31 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
     borderRadius: 40,
-    backgroundColor: '#007AFF',
+    backgroundColor: MedicalTheme.primary,
     justifyContent: 'center',
     alignItems: 'center',
+    borderWidth: 2,
+    borderColor: MedicalTheme.primaryLight,
   },
   logoText: {
     fontSize: 32,
     fontWeight: 'bold',
-    color: 'white',
+    color: MedicalTheme.textOnPrimary,
   },
   heroTitle: {
     fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center',
-    color: '#333',
+    color: MedicalTheme.textPrimary,
     marginBottom: 10,
     lineHeight: 32,
   },
   heroTitleHighlight: {
-    color: '#007AFF',
+    color: MedicalTheme.primary,
   },
   heroSubtitle: {
     fontSize: 16,
-    color: '#666',
+    color: MedicalTheme.textSecondary,
     textAlign: 'center',
     fontStyle: 'italic',
   },
@@ -234,7 +239,7 @@ const styles = StyleSheet.create({
   statNumber: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#007AFF',
+    color: 'MedicalTheme.primary',
     marginBottom: 5,
   },
   statLabel: {
@@ -295,7 +300,7 @@ const styles = StyleSheet.create({
   },
   serviceSubtitle: {
     fontSize: 14,
-    color: '#007AFF',
+    color: 'MedicalTheme.primary',
     marginBottom: 4,
   },
   serviceDescription: {

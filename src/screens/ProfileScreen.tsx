@@ -8,6 +8,7 @@ import {
   Platform,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import MedicalTheme from '../theme/colors';
 
 const ProfileScreen: React.FC = () => {
   return (
@@ -69,7 +70,7 @@ const ProfileScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8f9fa',
+    backgroundColor: MedicalTheme.background,
   },
   scrollContent: {
     padding: 20,
@@ -85,7 +86,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 50,
-    backgroundColor: '#007AFF',
+    backgroundColor: MedicalTheme.primary,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -97,18 +98,18 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#333',
+    color: MedicalTheme.textPrimary,
     marginBottom: 5,
   },
   title: {
     fontSize: 16,
-    color: '#666',
+    color: MedicalTheme.textSecondary,
     marginBottom: 20,
   },
   statsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    backgroundColor: 'white',
+    backgroundColor: MedicalTheme.surface,
     borderRadius: 12,
     padding: 20,
     marginBottom: 30,
@@ -133,16 +134,16 @@ const styles = StyleSheet.create({
   statNumber: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#007AFF',
+    color: 'MedicalTheme.primary',
     marginBottom: 5,
   },
   statLabel: {
     fontSize: 12,
-    color: '#666',
+    color: MedicalTheme.textSecondary,
     textAlign: 'center',
   },
   section: {
-    backgroundColor: 'white',
+    backgroundColor: MedicalTheme.surface,
     borderRadius: 12,
     padding: 20,
     marginBottom: 20,
@@ -164,13 +165,13 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#333',
+    color: MedicalTheme.textPrimary,
     marginBottom: 15,
   },
   aboutText: {
     fontSize: 16,
     lineHeight: 24,
-    color: '#666',
+    color: MedicalTheme.textSecondary,
   },
   skillsContainer: {
     flexDirection: 'row',
@@ -178,7 +179,7 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   skillTag: {
-    backgroundColor: '#007AFF',
+    backgroundColor: MedicalTheme.primary,
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 20,

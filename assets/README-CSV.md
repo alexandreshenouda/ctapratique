@@ -42,7 +42,7 @@ Le système détermine automatiquement l'icône du document selon le type :
 ## Exemple d'ajout de document
 
 ```csv
-44,Nouveau Guide,Guides,PDF,2024,Guide de bonnes pratiques 2024,https://example.com/guide.pdf,download,#007AFF
+44,Nouveau Guide,Guides,PDF,2024,Guide de bonnes pratiques 2024,https://example.com/guide.pdf,download,#2E86AB
 ```
 
 ## Modification du fichier
@@ -63,7 +63,7 @@ Le système détermine automatiquement l'icône du document selon le type :
 
 - **URPS**: #FF6B6B (Rouge)
 - **COVID**: #FF9500 (Orange)
-- **Guides**: #007AFF (Bleu)
+- **Guides**: #2E86AB (Bleu)
 - **Certifications**: #34C759 (Vert)
 - **Congrès**: #AF52DE (Violet)
 - **Articles**: #5856D6 (Indigo)
@@ -71,7 +71,7 @@ Le système détermine automatiquement l'icône du document selon le type :
 - **Surveillance**: #FF3B30 (Rouge vif)
 - **Spécialisations**: #8E8E93 (Gris)
 - **Déchets**: #32D74B (Vert clair)
-- **Contrôles**: #007AFF (Bleu)
+- **Contrôles**: #2E86AB (Bleu)
 - **Réglementation**: #FF2D92 (Rose)
 - **International**: #FFCC02 (Jaune)
 - **Médias**: #BF5AF2 (Violet clair)

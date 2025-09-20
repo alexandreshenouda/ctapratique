@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
+import MedicalTheme from '../theme/colors';
 
 interface FormationItemProps {
   title: string;
@@ -57,7 +58,7 @@ const FormationScreen: React.FC = () => {
       duration: '1 journée',
       participants: 'Max 20',
       icon: 'school' as const,
-      color: '#007AFF',
+      color: 'MedicalTheme.primary',
     },
     {
       title: 'Formation URPS PACA',
@@ -139,7 +140,7 @@ const FormationScreen: React.FC = () => {
           {objectives.map((objective, index) => (
             <View key={index} style={styles.objectiveCard}>
               <View style={styles.objectiveIcon}>
-                <Ionicons name={objective.icon} size={24} color="#007AFF" />
+                <Ionicons name={objective.icon} size={24} color="MedicalTheme.primary" />
               </View>
               <View style={styles.objectiveContent}>
                 <Text style={styles.objectiveTitle}>{objective.title}</Text>
@@ -156,7 +157,7 @@ const FormationScreen: React.FC = () => {
             <Text style={styles.programHeader}>Points abordés durant la formation :</Text>
             {programPoints.map((point, index) => (
               <View key={index} style={styles.programPoint}>
-                <Ionicons name="arrow-forward" size={16} color="#007AFF" />
+                <Ionicons name="arrow-forward" size={16} color="MedicalTheme.primary" />
                 <Text style={styles.programText}>{point}</Text>
               </View>
             ))}
@@ -169,7 +170,7 @@ const FormationScreen: React.FC = () => {
           
           <View style={styles.infoCard}>
             <View style={styles.infoHeader}>
-              <Ionicons name="information-circle" size={24} color="#007AFF" />
+              <Ionicons name="information-circle" size={24} color="MedicalTheme.primary" />
               <Text style={styles.infoHeaderText}>Modalités</Text>
             </View>
             <View style={styles.infoContent}>
@@ -213,26 +214,26 @@ const FormationScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8f9fa',
+    backgroundColor: MedicalTheme.background,
   },
   scrollContent: {
     paddingBottom: 30,
   },
   header: {
-    backgroundColor: '#007AFF',
+    backgroundColor: MedicalTheme.primary,
     padding: 20,
     alignItems: 'center',
   },
   headerTitle: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: 'white',
+    color: MedicalTheme.textOnPrimary,
     textAlign: 'center',
     marginBottom: 8,
   },
   headerSubtitle: {
     fontSize: 14,
-    color: 'white',
+    color: MedicalTheme.textOnPrimary,
     textAlign: 'center',
     opacity: 0.9,
   },
@@ -242,13 +243,13 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#333',
+    color: MedicalTheme.textPrimary,
     marginBottom: 15,
   },
   formationCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: MedicalTheme.surface,
     borderRadius: 12,
     padding: 16,
     marginBottom: 12,
@@ -415,7 +416,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 20,
     borderLeftWidth: 4,
-    borderLeftColor: '#007AFF',
+    borderLeftColor: 'MedicalTheme.primary',
   },
   legalText: {
     fontSize: 13,

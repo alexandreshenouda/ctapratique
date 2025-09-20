@@ -13,6 +13,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { loadDocuments, DocumentData } from '../utils/csvLoader';
+import MedicalTheme, { CategoryColors } from '../theme/colors';
 
 // Using DocumentData from csvLoader instead of local interface
 
@@ -98,22 +99,17 @@ const DocumentsScreen: React.FC = () => {
 
 
   const categories = [
-    { key: 'Tous', title: 'Tous', icon: 'apps' as const, color: '#007AFF' },
-    { key: 'URPS', title: 'URPS', icon: 'business' as const, color: '#FF6B6B' },
-    { key: 'COVID', title: 'COVID', icon: 'shield-checkmark' as const, color: '#FF9500' },
-    { key: 'Guides', title: 'Guides', icon: 'book' as const, color: '#007AFF' },
-    { key: 'Certifications', title: 'Certifications', icon: 'ribbon' as const, color: '#34C759' },
-    { key: 'Congrès', title: 'Congrès', icon: 'people' as const, color: '#AF52DE' },
-    { key: 'Articles', title: 'Articles', icon: 'newspaper' as const, color: '#5856D6' },
-    { key: 'Fiches', title: 'Fiches', icon: 'clipboard' as const, color: '#00C7BE' },
-    { key: 'Surveillance', title: 'Surveillance', icon: 'eye' as const, color: '#FF3B30' },
-    { key: 'Spécialisations', title: 'Spécialisations', icon: 'medical' as const, color: '#8E8E93' },
-    { key: 'Déchets', title: 'Déchets', icon: 'trash' as const, color: '#32D74B' },
-    { key: 'Contrôles', title: 'Contrôles', icon: 'flask' as const, color: '#007AFF' },
-    { key: 'Réglementation', title: 'Réglementation', icon: 'shield' as const, color: '#FF2D92' },
-    { key: 'International', title: 'International', icon: 'globe' as const, color: '#FFCC02' },
-    { key: 'Médias', title: 'Médias', icon: 'videocam' as const, color: '#BF5AF2' },
-    { key: 'Partenaires', title: 'Partenaires', icon: 'business' as const, color: '#6AC4DC' },
+    { key: 'Tous', title: 'Tous', icon: 'apps' as const, color: CategoryColors['Tous'] },
+    { key: 'URPS', title: 'URPS', icon: 'business' as const, color: CategoryColors['URPS'] },
+    { key: 'COVID', title: 'COVID', icon: 'shield-checkmark' as const, color: CategoryColors['COVID'] },
+    { key: 'Formation', title: 'Formation', icon: 'school' as const, color: CategoryColors['Formation'] },
+    { key: 'Hygiène', title: 'Hygiène', icon: 'water' as const, color: CategoryColors['Hygiène'] },
+    { key: 'Stérilisation', title: 'Stérilisation', icon: 'flask' as const, color: CategoryColors['Stérilisation'] },
+    { key: 'Sécurité', title: 'Sécurité', icon: 'shield' as const, color: CategoryColors['Sécurité'] },
+    { key: 'Réglementation', title: 'Réglementation', icon: 'document-text' as const, color: CategoryColors['Réglementation'] },
+    { key: 'Certification', title: 'Certification', icon: 'ribbon' as const, color: CategoryColors['Certification'] },
+    { key: 'Protocole', title: 'Protocole', icon: 'clipboard' as const, color: CategoryColors['Protocole'] },
+    { key: 'Partenaires', title: 'Partenaires', icon: 'business' as const, color: MedicalTheme.info },
   ];
 
   const getDocumentsByCategory = () => {
@@ -278,10 +274,10 @@ const DocumentsScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8f9fa',
+    backgroundColor: MedicalTheme.background,
   },
   header: {
-    backgroundColor: '#007AFF',
+    backgroundColor: MedicalTheme.primary,
     padding: 20,
     paddingTop: 10,
   },
@@ -353,7 +349,7 @@ const styles = StyleSheet.create({
         overflowY: 'auto',
         overflowX: 'hidden',
         scrollbarWidth: 'thin',
-        scrollbarColor: '#007AFF #f0f0f0',
+        scrollbarColor: 'MedicalTheme.primary #f0f0f0',
         '&::-webkit-scrollbar': {
           width: '6px',
         },
@@ -362,7 +358,7 @@ const styles = StyleSheet.create({
           borderRadius: '3px',
         },
         '&::-webkit-scrollbar-thumb': {
-          background: '#007AFF',
+          background: 'MedicalTheme.primary',
           borderRadius: '3px',
         },
         '&::-webkit-scrollbar-thumb:hover': {
@@ -469,7 +465,7 @@ const styles = StyleSheet.create({
   },
   documentType: {
     fontSize: 12,
-    color: '#007AFF',
+    color: 'MedicalTheme.primary',
     fontWeight: '500',
   },
   documentYear: {

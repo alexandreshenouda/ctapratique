@@ -4,9 +4,9 @@ id,title,category,type,year,description,url,iconType,color
 3,COVID 2020,COVID,Web,2020,Protocole sanitaire COVID-19 pour cabinets dentaires,https://www.preventioninfection.fr/?jet_download=318d015454d0678e855c63c057622d33e328688d,external,#FF9500
 4,COVID 2021,COVID,PDF,2021,Mise à jour des protocoles COVID-19,https://www.has-sante.fr/upload/docs/application/pdf/2021-01/p_2021_0015_rr_covid19_soins_bucco_dentaires.pdf,download,#FF9500
 5,COVID-19,COVID,PDF,,Guide général COVID-19 pour professionnels de santé,https://1beccaab-b9c5-4184-8c2f-4422faafed9e.usrfiles.com/ugd/1becca_9d2e33206ff04344813e0fa949e81362.pdf,download,#FF9500
-6,GUIDE DGS-2011,Guides,PDF,2011,Guide de prévention des infections - Direction Générale de la Santé,https://www.fncs.org/sites/default/files/pdf/GRILLE_DEVALUAT_DES_CAB_DENTAIRES_oct_2011.pdf,download,#007AFF
-7,Guide 2006,Guides,PDF,2006,Guide de prévention des infections liées aux soins,https://sante.gouv.fr/IMG/pdf/Guide_de_prevention_des_infections_liees_aux_soins_en_chirurgie_dentaire_et_en_stomatologie.pdf,download,#007AFF
-8,AIR REPIAS,Guides,PDF,,Réseau de Prévention des Infections Associées aux Soins,https://www.sf2h.net/k-stock/data/uploads/2021/03/2021-03-10-Covid-19-traitement-dair-en-cabinet-de-chirugie-dentaire.pdf,download,#007AFF
+6,GUIDE DGS-2011,Guides,PDF,2011,Guide de prévention des infections - Direction Générale de la Santé,https://www.fncs.org/sites/default/files/pdf/GRILLE_DEVALUAT_DES_CAB_DENTAIRES_oct_2011.pdf,download,#2E86AB
+7,Guide 2006,Guides,PDF,2006,Guide de prévention des infections liées aux soins,https://sante.gouv.fr/IMG/pdf/Guide_de_prevention_des_infections_liees_aux_soins_en_chirurgie_dentaire_et_en_stomatologie.pdf,download,#2E86AB
+8,AIR REPIAS,Guides,PDF,,Réseau de Prévention des Infections Associées aux Soins,https://www.sf2h.net/k-stock/data/uploads/2021/03/2021-03-10-Covid-19-traitement-dair-en-cabinet-de-chirugie-dentaire.pdf,download,#2E86AB
 9,QUALIOPI,Certifications,PDF,,Certification qualité formation professionnelle,https://www.ctapratique.com/_files/ugd/1becca_1e7811f265b146a88942d9acf6a57461.pdf,download,#34C759
 10,CERTIBIOCIDE,Certifications,PDF,,Certificat biocide pour produits désinfectants,https://play.senzu.app/s/53182@3b5e6adfe66aea771c693ea21860551b,download,#34C759
 11,ADF 2015,Congrès,PDF,2015,Association Dentaire Française - Congrès 2015,https://play.senzu.app/s/53182@3b5e6adfe66aea771c693ea21860551b,external,#AF52DE
@@ -29,9 +29,9 @@ id,title,category,type,year,description,url,iconType,color
 28,EVAL DASRI,Déchets,PDF,,Évaluation gestion DASRI,https://play.senzu.app/s/53182@3b5e6adfe66aea771c693ea21860551b,download,#32D74B
 29,ECO RESPONSABLE,Déchets,PDF,,Pratiques éco-responsables au cabinet dentaire,https://play.senzu.app/s/53182@3b5e6adfe66aea771c693ea21860551b,external,#32D74B
 30,DECHETS,Déchets,PDF,,Gestion des déchets de cabinet dentaire,https://play.senzu.app/s/53182@3b5e6adfe66aea771c693ea21860551b,download,#32D74B
-31,TEST EAU,Contrôles,PDF,,Tests qualité de l'eau au cabinet dentaire,https://play.senzu.app/s/53182@3b5e6adfe66aea771c693ea21860551b,download,#007AFF
-32,QUALITE EAU,Contrôles,PDF,,Contrôle qualité de l'eau - Protocoles,https://play.senzu.app/s/53182@3b5e6adfe66aea771c693ea21860551b,download,#007AFF
-33,RADIOPROTECT,Contrôles,PDF,,Radioprotection au cabinet dentaire,https://play.senzu.app/s/53182@3b5e6adfe66aea771c693ea21860551b,external,#007AFF
+31,TEST EAU,Contrôles,PDF,,Tests qualité de l'eau au cabinet dentaire,https://play.senzu.app/s/53182@3b5e6adfe66aea771c693ea21860551b,download,#2E86AB
+32,QUALITE EAU,Contrôles,PDF,,Contrôle qualité de l'eau - Protocoles,https://play.senzu.app/s/53182@3b5e6adfe66aea771c693ea21860551b,download,#2E86AB
+33,RADIOPROTECT,Contrôles,PDF,,Radioprotection au cabinet dentaire,https://play.senzu.app/s/53182@3b5e6adfe66aea771c693ea21860551b,external,#2E86AB
 34,DGCCRF,Réglementation,PDF,,Direction Générale de la Concurrence et de la Répression des Fraudes,https://play.senzu.app/s/53182@3b5e6adfe66aea771c693ea21860551b,external,#FF2D92
 35,ANSM,Réglementation,PDF,,Agence Nationale de Sécurité du Médicament,https://play.senzu.app/s/53182@3b5e6adfe66aea771c693ea21860551b,external,#FF2D92
 36,EPI CPIAS,Réglementation,PDF,,Équipements de Protection Individuelle - CPIAS,https://play.senzu.app/s/53182@3b5e6adfe66aea771c693ea21860551b,download,#FF2D92
