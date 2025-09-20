@@ -1,0 +1,501 @@
+import React, { useState, useEffect } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+  Platform,
+  TextInput,
+  Alert,
+  Linking,
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Ionicons } from '@expo/vector-icons';
+import { loadDocuments, DocumentData } from '../utils/csvLoader';
+
+// Using DocumentData from csvLoader instead of local interface
+
+interface CategoryProps {
+  title: string;
+  icon: keyof typeof Ionicons.glyphMap;
+  color: string;
+  count: number;
+  isSelected: boolean;
+  onPress: () => void;
+}
+
+const CategoryCard: React.FC<CategoryProps> = ({ title, icon, color, count, isSelected, onPress }) => (
+  <TouchableOpacity 
+    style={[styles.categoryCard, isSelected && { backgroundColor: `${color}20`, borderColor: color }]} 
+    onPress={onPress}
+  >
+    <View style={[styles.categoryIcon, { backgroundColor: `${color}15` }]}>
+      <Ionicons name={icon} size={24} color={color} />
+    </View>
+    <Text style={[styles.categoryTitle, isSelected && { color }]}>{title}</Text>
+    <Text style={styles.categoryCount}>{count} docs</Text>
+  </TouchableOpacity>
+);
+
+interface DocumentItemProps {
+  document: DocumentData;
+  onPress: () => void;
+}
+
+const DocumentItem: React.FC<DocumentItemProps> = ({ document, onPress }) => {
+  const getDocumentIcon = () => {
+    switch (document.type.toLowerCase()) {
+      case 'pdf': return 'document-text';
+      case 'video': return 'videocam';
+      case 'ppt': return 'easel';
+      default: return 'document';
+    }
+  };
+
+  const getActionIcon = () => {
+    return document.iconType === 'external' ? 'open-outline' : 'download-outline';
+  };
+
+  return (
+    <TouchableOpacity style={styles.documentItem} onPress={onPress}>
+      <View style={[styles.documentIcon, { backgroundColor: `${document.color}15` }]}>
+        <Ionicons name={getDocumentIcon() as keyof typeof Ionicons.glyphMap} size={20} color={document.color} />
+      </View>
+      <View style={styles.documentContent}>
+        <Text style={styles.documentTitle}>{document.title}</Text>
+        <Text style={styles.documentDescription}>{document.description}</Text>
+        <View style={styles.documentMeta}>
+          <Text style={styles.documentType}>{document.type}</Text>
+          {document.year && <Text style={styles.documentYear}>{document.year}</Text>}
+        </View>
+      </View>
+      <Ionicons name={getActionIcon() as keyof typeof Ionicons.glyphMap} size={20} color="#666" />
+    </TouchableOpacity>
+  );
+};
+
+const DocumentsScreen: React.FC = () => {
+  const [selectedCategory, setSelectedCategory] = useState('Tous');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [documents, setDocuments] = useState<DocumentData[]>([]);
+
+  useEffect(() => {
+    // Load documents from CSV
+    const loadedDocuments = loadDocuments();
+    setDocuments(loadedDocuments);
+  }, []);
+
+
+  const categories = [
+    { key: 'Tous', title: 'Tous', icon: 'apps' as const, color: '#007AFF' },
+    { key: 'URPS', title: 'URPS', icon: 'business' as const, color: '#FF6B6B' },
+    { key: 'COVID', title: 'COVID', icon: 'shield-checkmark' as const, color: '#FF9500' },
+    { key: 'Guides', title: 'Guides', icon: 'book' as const, color: '#007AFF' },
+    { key: 'Certifications', title: 'Certifications', icon: 'ribbon' as const, color: '#34C759' },
+    { key: 'Congrès', title: 'Congrès', icon: 'people' as const, color: '#AF52DE' },
+    { key: 'Articles', title: 'Articles', icon: 'newspaper' as const, color: '#5856D6' },
+    { key: 'Fiches', title: 'Fiches', icon: 'clipboard' as const, color: '#00C7BE' },
+    { key: 'Surveillance', title: 'Surveillance', icon: 'eye' as const, color: '#FF3B30' },
+    { key: 'Spécialisations', title: 'Spécialisations', icon: 'medical' as const, color: '#8E8E93' },
+    { key: 'Déchets', title: 'Déchets', icon: 'trash' as const, color: '#32D74B' },
+    { key: 'Contrôles', title: 'Contrôles', icon: 'flask' as const, color: '#007AFF' },
+    { key: 'Réglementation', title: 'Réglementation', icon: 'shield' as const, color: '#FF2D92' },
+    { key: 'International', title: 'International', icon: 'globe' as const, color: '#FFCC02' },
+    { key: 'Médias', title: 'Médias', icon: 'videocam' as const, color: '#BF5AF2' },
+    { key: 'Partenaires', title: 'Partenaires', icon: 'business' as const, color: '#6AC4DC' },
+  ];
+
+  const getDocumentsByCategory = () => {
+    let filtered = selectedCategory === 'Tous' ? documents : documents.filter(doc => doc.category === selectedCategory);
+    
+    if (searchQuery) {
+      filtered = filtered.filter(doc => 
+        doc.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        doc.description.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+    
+    return filtered;
+  };
+
+  const getCategoryCount = (categoryKey: string) => {
+    if (categoryKey === 'Tous') return documents.length;
+    return documents.filter(doc => doc.category === categoryKey).length;
+  };
+
+  const handleDocumentPress = (document: DocumentData) => {
+    const actionText = document.iconType === 'external' ? 'Accéder au lien' : 'Télécharger';
+    const descriptionText = document.iconType === 'external' 
+      ? 'Ce document est disponible via un lien externe.'
+      : 'Ce document est disponible en téléchargement sur le portail C ta Pratique.';
+    
+    Alert.alert(
+      document.title,
+      `${document.description}\n\nType: ${document.type}${document.year ? `\nAnnée: ${document.year}` : ''}\n\n${descriptionText}`,
+      [
+        { text: 'Annuler', style: 'cancel' },
+        { 
+          text: actionText, 
+          onPress: async () => {
+            try {
+              const targetUrl = document.url || 'https://play.senzu.app/s/53182@3b5e6adfe66aea771c693ea21860551b';
+              if (Platform.OS === 'web') {
+                window.open(targetUrl, '_blank');
+              } else {
+                await Linking.openURL(targetUrl);
+              }
+            } catch (error) {
+              Alert.alert('Erreur', 'Impossible d\'ouvrir le lien');
+            }
+          }
+        }
+      ]
+    );
+  };
+
+  const filteredDocuments = getDocumentsByCategory();
+
+  return (
+    <SafeAreaView style={styles.container}>
+      {/* Header */}
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>Documents Professionnels</Text>
+        <Text style={styles.headerSubtitle}>Hygiène & Asepsie Dentaire</Text>
+      </View>
+
+      {/* Search Bar */}
+      <View style={styles.searchContainer}>
+        <View style={styles.searchBar}>
+          <Ionicons name="search" size={20} color="#666" />
+          <TextInput
+            style={styles.searchInput}
+            placeholder="Rechercher un document..."
+            value={searchQuery}
+            onChangeText={setSearchQuery}
+            placeholderTextColor="#999"
+          />
+          {searchQuery ? (
+            <TouchableOpacity onPress={() => setSearchQuery('')}>
+              <Ionicons name="close-circle" size={20} color="#666" />
+            </TouchableOpacity>
+          ) : null}
+        </View>
+      </View>
+
+      <ScrollView style={styles.content}>
+        {/* Categories */}
+        <View style={styles.categoriesSection}>
+          <Text style={styles.sectionTitle}>Catégories</Text>
+          {Platform.OS === 'web' ? (
+            <View style={styles.categoriesWebContainer}>
+              {categories.map((category) => (
+                <CategoryCard
+                  key={category.key}
+                  title={category.title}
+                  icon={category.icon}
+                  color={category.color}
+                  count={getCategoryCount(category.key)}
+                  isSelected={selectedCategory === category.key}
+                  onPress={() => setSelectedCategory(category.key)}
+                />
+              ))}
+            </View>
+          ) : (
+            <ScrollView 
+              horizontal 
+              showsHorizontalScrollIndicator={false} 
+              contentContainerStyle={styles.categoriesContainer}
+              style={styles.categoriesScroll}
+            >
+              {categories.map((category) => (
+                <CategoryCard
+                  key={category.key}
+                  title={category.title}
+                  icon={category.icon}
+                  color={category.color}
+                  count={getCategoryCount(category.key)}
+                  isSelected={selectedCategory === category.key}
+                  onPress={() => setSelectedCategory(category.key)}
+                />
+              ))}
+            </ScrollView>
+          )}
+        </View>
+
+        {/* Documents List */}
+        <View style={styles.documentsSection}>
+          <View style={styles.documentsHeader}>
+            <Text style={styles.sectionTitle}>
+              {selectedCategory === 'Tous' ? 'Tous les documents' : selectedCategory}
+            </Text>
+            <Text style={styles.documentsCount}>
+              {filteredDocuments.length} document{filteredDocuments.length > 1 ? 's' : ''}
+            </Text>
+          </View>
+
+          {/* Info Note */}
+          <View style={styles.infoNote}>
+            <Ionicons name="information-circle" size={20} color="#007AFF" />
+            <Text style={styles.infoNoteText}>
+              Les documents s'ouvrent dans le portail C ta Pratique. Recherchez le document souhaité une fois sur le portail.
+            </Text>
+          </View>
+
+          {filteredDocuments.length > 0 ? (
+            filteredDocuments.map((document) => (
+              <DocumentItem
+                key={document.id}
+                document={document}
+                onPress={() => handleDocumentPress(document)}
+              />
+            ))
+          ) : (
+            <View style={styles.emptyState}>
+              <Ionicons name="document-outline" size={64} color="#ccc" />
+              <Text style={styles.emptyStateText}>Aucun document trouvé</Text>
+              <Text style={styles.emptyStateSubtext}>
+                {searchQuery ? 'Essayez avec d\'autres mots-clés' : 'Sélectionnez une autre catégorie'}
+              </Text>
+            </View>
+          )}
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f8f9fa',
+  },
+  header: {
+    backgroundColor: '#007AFF',
+    padding: 20,
+    paddingTop: 10,
+  },
+  headerTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: 'white',
+    textAlign: 'center',
+  },
+  headerSubtitle: {
+    fontSize: 14,
+    color: 'white',
+    textAlign: 'center',
+    opacity: 0.9,
+    marginTop: 4,
+  },
+  searchContainer: {
+    padding: 15,
+    backgroundColor: 'white',
+    borderBottomWidth: 1,
+    borderBottomColor: '#e0e0e0',
+  },
+  searchBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#f5f5f5',
+    borderRadius: 10,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    gap: 10,
+  },
+  searchInput: {
+    flex: 1,
+    fontSize: 16,
+    color: '#333',
+  },
+  content: {
+    flex: 1,
+  },
+  categoriesSection: {
+    paddingTop: 15,
+    paddingBottom: 15,
+    backgroundColor: 'white',
+    borderBottomWidth: 1,
+    borderBottomColor: '#e0e0e0',
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 15,
+    paddingHorizontal: 15,
+  },
+  categoriesScroll: {
+    flexGrow: 0,
+  },
+  categoriesContainer: {
+    paddingHorizontal: 15,
+    paddingRight: 30, // Extra padding for last item
+  },
+  categoriesWebContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    paddingHorizontal: 15,
+    gap: 12,
+    ...Platform.select({
+      web: {
+        maxHeight: 200,
+        overflowY: 'auto',
+        overflowX: 'hidden',
+        scrollbarWidth: 'thin',
+        scrollbarColor: '#007AFF #f0f0f0',
+        '&::-webkit-scrollbar': {
+          width: '6px',
+        },
+        '&::-webkit-scrollbar-track': {
+          background: '#f0f0f0',
+          borderRadius: '3px',
+        },
+        '&::-webkit-scrollbar-thumb': {
+          background: '#007AFF',
+          borderRadius: '3px',
+        },
+        '&::-webkit-scrollbar-thumb:hover': {
+          background: '#0056b3',
+        },
+      },
+    }),
+  },
+  categoryCard: {
+    alignItems: 'center',
+    backgroundColor: '#f8f9fa',
+    borderRadius: 12,
+    padding: 12,
+    marginRight: 12,
+    minWidth: 80,
+    borderWidth: 2,
+    borderColor: 'transparent',
+    ...Platform.select({
+      web: {
+        width: 100,
+        marginRight: 0,
+        marginBottom: 12,
+        flex: '0 0 auto',
+      },
+    }),
+  },
+  categoryIcon: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  categoryTitle: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: '#333',
+    textAlign: 'center',
+    marginBottom: 2,
+  },
+  categoryCount: {
+    fontSize: 10,
+    color: '#666',
+    textAlign: 'center',
+  },
+  documentsSection: {
+    padding: 15,
+  },
+  documentsHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 15,
+  },
+  documentsCount: {
+    fontSize: 14,
+    color: '#666',
+  },
+  infoNote: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#f0f8ff',
+    borderRadius: 8,
+    padding: 12,
+    marginBottom: 15,
+    gap: 8,
+  },
+  infoNoteText: {
+    fontSize: 13,
+    color: '#007AFF',
+    flex: 1,
+  },
+  documentItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    borderRadius: 12,
+    padding: 15,
+    marginBottom: 10,
+    ...Platform.select({
+      ios: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+      },
+      android: { elevation: 3 },
+      web: { boxShadow: '0 2px 6px rgba(0,0,0,0.1)' },
+    }),
+  },
+  documentIcon: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 15,
+  },
+  documentContent: {
+    flex: 1,
+  },
+  documentTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#333',
+    marginBottom: 4,
+  },
+  documentDescription: {
+    fontSize: 14,
+    color: '#666',
+    lineHeight: 18,
+    marginBottom: 6,
+  },
+  documentMeta: {
+    flexDirection: 'row',
+    gap: 10,
+  },
+  documentType: {
+    fontSize: 12,
+    color: '#007AFF',
+    fontWeight: '500',
+  },
+  documentYear: {
+    fontSize: 12,
+    color: '#999',
+  },
+  emptyState: {
+    alignItems: 'center',
+    paddingVertical: 40,
+  },
+  emptyStateText: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#666',
+    marginTop: 15,
+    marginBottom: 5,
+  },
+  emptyStateSubtext: {
+    fontSize: 14,
+    color: '#999',
+    textAlign: 'center',
+  },
+});
+
+export default DocumentsScreen;
