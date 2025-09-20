@@ -49,6 +49,7 @@ const DocumentItem: React.FC<DocumentItemProps> = ({ document, onPress }) => {
       case 'pdf': return 'document-text';
       case 'video': return 'videocam';
       case 'ppt': return 'easel';
+      case 'web': return 'globe';
       default: return 'document';
     }
   };
@@ -57,8 +58,12 @@ const DocumentItem: React.FC<DocumentItemProps> = ({ document, onPress }) => {
     return document.iconType === 'external' ? 'open-outline' : 'download-outline';
   };
 
+  const handlePress = () => {
+    onPress();
+  };
+
   return (
-    <TouchableOpacity style={styles.documentItem} onPress={onPress}>
+    <TouchableOpacity style={styles.documentItem} onPress={handlePress}>
       <View style={[styles.documentIcon, { backgroundColor: `${document.color}15` }]}>
         <Ionicons name={getDocumentIcon() as keyof typeof Ionicons.glyphMap} size={20} color={document.color} />
       </View>
@@ -81,9 +86,14 @@ const DocumentsScreen: React.FC = () => {
   const [documents, setDocuments] = useState<DocumentData[]>([]);
 
   useEffect(() => {
-    // Load documents from CSV
-    const loadedDocuments = loadDocuments();
-    setDocuments(loadedDocuments);
+    // Load documents from generated data file
+    try {
+      const loadedDocuments = loadDocuments();
+      setDocuments(loadedDocuments);
+    } catch (error) {
+      console.error('Failed to load documents:', error);
+      // Documents will remain empty array, could show error message
+    }
   }, []);
 
 
@@ -130,6 +140,18 @@ const DocumentsScreen: React.FC = () => {
       ? 'Ce document est disponible via un lien externe.'
       : 'Ce document est disponible en téléchargement sur le portail C ta Pratique.';
     
+    // Sur web, Alert ne fonctionne pas bien, on ouvre directement
+    if (Platform.OS === 'web') {
+      const targetUrl = document.url || 'https://play.senzu.app/s/53182@3b5e6adfe66aea771c693ea21860551b';
+      
+      // Ouvrir le lien
+      if (typeof window !== 'undefined' && window.open) {
+        window.open(targetUrl, '_blank');
+      }
+      return;
+    }
+    
+    // Sur mobile, on utilise Alert
     Alert.alert(
       document.title,
       `${document.description}\n\nType: ${document.type}${document.year ? `\nAnnée: ${document.year}` : ''}\n\n${descriptionText}`,
@@ -140,11 +162,7 @@ const DocumentsScreen: React.FC = () => {
           onPress: async () => {
             try {
               const targetUrl = document.url || 'https://play.senzu.app/s/53182@3b5e6adfe66aea771c693ea21860551b';
-              if (Platform.OS === 'web') {
-                window.open(targetUrl, '_blank');
-              } else {
-                await Linking.openURL(targetUrl);
-              }
+              await Linking.openURL(targetUrl);
             } catch (error) {
               Alert.alert('Erreur', 'Impossible d\'ouvrir le lien');
             }
@@ -231,14 +249,6 @@ const DocumentsScreen: React.FC = () => {
             </Text>
             <Text style={styles.documentsCount}>
               {filteredDocuments.length} document{filteredDocuments.length > 1 ? 's' : ''}
-            </Text>
-          </View>
-
-          {/* Info Note */}
-          <View style={styles.infoNote}>
-            <Ionicons name="information-circle" size={20} color="#007AFF" />
-            <Text style={styles.infoNoteText}>
-              Les documents s'ouvrent dans le portail C ta Pratique. Recherchez le document souhaité une fois sur le portail.
             </Text>
           </View>
 
@@ -411,20 +421,6 @@ const styles = StyleSheet.create({
   documentsCount: {
     fontSize: 14,
     color: '#666',
-  },
-  infoNote: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#f0f8ff',
-    borderRadius: 8,
-    padding: 12,
-    marginBottom: 15,
-    gap: 8,
-  },
-  infoNoteText: {
-    fontSize: 13,
-    color: '#007AFF',
-    flex: 1,
   },
   documentItem: {
     flexDirection: 'row',

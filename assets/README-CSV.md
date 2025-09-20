@@ -50,7 +50,14 @@ Le système détermine automatiquement l'icône du document selon le type :
 1. Ouvrez `assets/documents.csv` dans un éditeur de texte ou Excel
 2. Ajoutez/modifiez les lignes selon vos besoins
 3. Respectez le format CSV (virgules comme séparateurs)
-4. Redémarrez l'application pour voir les changements
+4. **Exécutez la commande** : `npm run generate-docs` pour mettre à jour les données
+5. Redémarrez l'application pour voir les changements
+
+### Commandes disponibles
+
+- `npm run generate-docs` : Génère les données à partir du CSV
+- `npm run dev` : Génère les données ET démarre l'application
+- `npm start` : Démarre l'application normale
 
 ## Couleurs par catégorie
 
