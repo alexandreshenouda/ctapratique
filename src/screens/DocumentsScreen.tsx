@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
-import { loadDocuments, DocumentData } from '../utils/csvLoader';
+import { loadDocuments, loadDocumentsGrouped, DocumentData, DocumentOrGroup, DocumentGroup, DocumentItem } from '../utils/csvLoader';
 import MedicalTheme, { CategoryColors } from '../theme/colors';
 
 // Using DocumentData from csvLoader instead of local interface
@@ -39,12 +39,12 @@ const CategoryCard: React.FC<CategoryProps> = ({ title, icon, color, count, isSe
   </TouchableOpacity>
 );
 
-interface DocumentItemProps {
+interface DocumentComponentProps {
   document: DocumentData;
   onPress: () => void;
 }
 
-const DocumentItem: React.FC<DocumentItemProps> = ({ document, onPress }) => {
+const DocumentComponent: React.FC<DocumentComponentProps> = ({ document, onPress }) => {
   const getDocumentIcon = () => {
     switch (document.type.toLowerCase()) {
       case 'pdf': return 'document-text';
@@ -81,16 +81,74 @@ const DocumentItem: React.FC<DocumentItemProps> = ({ document, onPress }) => {
   );
 };
 
+interface DocumentOrGroupItemProps {
+  item: DocumentOrGroup;
+  onPress: () => void;
+}
+
+const DocumentOrGroupItem: React.FC<DocumentOrGroupItemProps> = ({ item, onPress }) => {
+  const getIcon = () => {
+    if (item.isGroup) {
+      return 'folder';
+    }
+    switch (item.type.toLowerCase()) {
+      case 'pdf': return 'document-text';
+      case 'video': return 'videocam';
+      case 'ppt': return 'easel';
+      case 'web': return 'globe';
+      default: return 'document';
+    }
+  };
+
+  const getActionIcon = () => {
+    if (item.isGroup) {
+      return 'chevron-forward';
+    }
+    return item.iconType === 'external' ? 'open-outline' : 'download-outline';
+  };
+
+  const getDisplayType = () => {
+    if (item.isGroup) {
+      return `${item.documents.length} documents`;
+    }
+    return item.type;
+  };
+
+  return (
+    <TouchableOpacity style={styles.documentItem} onPress={onPress}>
+      <View style={[styles.documentIcon, { backgroundColor: `${item.color}15` }]}>
+        <Ionicons name={getIcon() as keyof typeof Ionicons.glyphMap} size={20} color={item.color} />
+      </View>
+      <View style={styles.documentContent}>
+        <Text style={styles.documentTitle}>{item.title}</Text>
+        <Text style={styles.documentDescription}>{item.description}</Text>
+        <View style={styles.documentMeta}>
+          <Text style={styles.documentType}>{getDisplayType()}</Text>
+          {!item.isGroup && (item as DocumentItem).year && (
+            <Text style={styles.documentYear}>{(item as DocumentItem).year}</Text>
+          )}
+        </View>
+      </View>
+      <Ionicons name={getActionIcon() as keyof typeof Ionicons.glyphMap} size={20} color="#666" />
+    </TouchableOpacity>
+  );
+};
+
 const DocumentsScreen: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState('Tous');
   const [searchQuery, setSearchQuery] = useState('');
   const [documents, setDocuments] = useState<DocumentData[]>([]);
+  const [documentsGrouped, setDocumentsGrouped] = useState<DocumentOrGroup[]>([]);
+  const [selectedGroup, setSelectedGroup] = useState<DocumentGroup | null>(null);
+  const [isGroupTransitioning, setIsGroupTransitioning] = useState(false);
 
   useEffect(() => {
     // Load documents from generated data file
     try {
       const loadedDocuments = loadDocuments();
+      const loadedGrouped = loadDocumentsGrouped();
       setDocuments(loadedDocuments);
+      setDocumentsGrouped(loadedGrouped);
     } catch (error) {
       console.error('Failed to load documents:', error);
       // Documents will remain empty array, could show error message
@@ -112,6 +170,29 @@ const DocumentsScreen: React.FC = () => {
     { key: 'Partenaires', title: 'Partenaires', icon: 'business' as const, color: MedicalTheme.info },
   ];
 
+  const handleGroupPress = (group: DocumentGroup) => {
+    setIsGroupTransitioning(true);
+    setSelectedGroup(null);
+    
+    // Attendre que le composant se mette à jour avant d'afficher le nouveau groupe
+    setTimeout(() => {
+      setSelectedGroup(group);
+      setIsGroupTransitioning(false);
+    }, 50);
+  };
+
+  const handleBackFromGroup = () => {
+    setSelectedGroup(null);
+  };
+
+  const handleDocumentOrGroupPress = (item: DocumentOrGroup) => {
+    if (item.isGroup) {
+      handleGroupPress(item);
+    } else {
+      handleDocumentPress(item as DocumentData);
+    }
+  };
+
   const getDocumentsByCategory = () => {
     let filtered = selectedCategory === 'Tous' ? documents : documents.filter(doc => doc.category === selectedCategory);
     
@@ -120,6 +201,32 @@ const DocumentsScreen: React.FC = () => {
         doc.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         doc.description.toLowerCase().includes(searchQuery.toLowerCase())
       );
+    }
+    
+    return filtered;
+  };
+
+  const getGroupedDocumentsByCategory = () => {
+    let filtered = selectedCategory === 'Tous' ? documentsGrouped : documentsGrouped.filter(item => {
+      if (item.isGroup) {
+        return item.documents.some(doc => doc.category === selectedCategory);
+      } else {
+        return item.category === selectedCategory;
+      }
+    });
+    
+    if (searchQuery) {
+      filtered = filtered.filter(item => {
+        if (item.isGroup) {
+          return item.documents.some(doc =>
+            doc.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            doc.description.toLowerCase().includes(searchQuery.toLowerCase())
+          );
+        } else {
+          return item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                 item.description.toLowerCase().includes(searchQuery.toLowerCase());
+        }
+      });
     }
     
     return filtered;
@@ -169,13 +276,28 @@ const DocumentsScreen: React.FC = () => {
   };
 
   const filteredDocuments = getDocumentsByCategory();
+  const filteredGroupedDocuments = getGroupedDocumentsByCategory();
 
   return (
     <SafeAreaView style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>Documents Professionnels</Text>
-        <Text style={styles.headerSubtitle}>Hygiène & Asepsie Dentaire</Text>
+        {selectedGroup ? (
+          <View style={styles.groupHeader}>
+            <TouchableOpacity style={styles.backButton} onPress={handleBackFromGroup}>
+              <Ionicons name="arrow-back" size={24} color={MedicalTheme.textOnPrimary} />
+            </TouchableOpacity>
+            <View style={styles.groupHeaderText}>
+              <Text style={styles.headerTitle}>{selectedGroup.title}</Text>
+              <Text style={styles.headerSubtitle}>{selectedGroup.documents.length} documents</Text>
+            </View>
+          </View>
+        ) : (
+          <>
+            <Text style={styles.headerTitle}>Documents Professionnels</Text>
+            <Text style={styles.headerSubtitle}>Hygiène & Asepsie Dentaire</Text>
+          </>
+        )}
       </View>
 
       {/* Search Bar */}
@@ -239,31 +361,58 @@ const DocumentsScreen: React.FC = () => {
 
         {/* Documents List */}
         <View style={styles.documentsSection}>
-          <View style={styles.documentsHeader}>
-            <Text style={styles.sectionTitle}>
-              {selectedCategory === 'Tous' ? 'Tous les documents' : selectedCategory}
-            </Text>
-            <Text style={styles.documentsCount}>
-              {filteredDocuments.length} document{filteredDocuments.length > 1 ? 's' : ''}
-            </Text>
-          </View>
-
-          {filteredDocuments.length > 0 ? (
-            filteredDocuments.map((document) => (
-              <DocumentItem
-                key={document.id}
-                document={document}
-                onPress={() => handleDocumentPress(document)}
-              />
-            ))
-          ) : (
-            <View style={styles.emptyState}>
-              <Ionicons name="document-outline" size={64} color="#ccc" />
-              <Text style={styles.emptyStateText}>Aucun document trouvé</Text>
-              <Text style={styles.emptyStateSubtext}>
-                {searchQuery ? 'Essayez avec d\'autres mots-clés' : 'Sélectionnez une autre catégorie'}
-              </Text>
+          {isGroupTransitioning ? (
+            <View style={styles.loadingState}>
+              <Text style={styles.loadingText}>Chargement...</Text>
             </View>
+          ) : selectedGroup ? (
+            /* Group Detail View */
+            <>
+              <View style={styles.documentsHeader}>
+                <Text style={styles.sectionTitle}>Documents dans ce groupe</Text>
+                <Text style={styles.documentsCount}>
+                  {selectedGroup.documents.length} document{selectedGroup.documents.length > 1 ? 's' : ''}
+                </Text>
+              </View>
+
+              {selectedGroup.documents.map((document, index) => (
+                <DocumentComponent
+                  key={`group-${selectedGroup.id}-doc-${index}-${document.title}-${document.year || 'no-year'}`}
+                  document={document}
+                  onPress={() => handleDocumentPress(document)}
+                />
+              ))}
+            </>
+          ) : (
+            /* Main Documents View */
+            <>
+              <View style={styles.documentsHeader}>
+                <Text style={styles.sectionTitle}>
+                  {selectedCategory === 'Tous' ? 'Tous les documents' : selectedCategory}
+                </Text>
+                <Text style={styles.documentsCount}>
+                  {filteredGroupedDocuments.length} élément{filteredGroupedDocuments.length > 1 ? 's' : ''}
+                </Text>
+              </View>
+
+              {filteredGroupedDocuments.length > 0 ? (
+                filteredGroupedDocuments.map((item, index) => (
+                  <DocumentOrGroupItem
+                    key={`main-${item.id}-${item.isGroup ? 'group' : 'item'}-${index}-${item.title}`}
+                    item={item}
+                    onPress={() => handleDocumentOrGroupPress(item)}
+                  />
+                ))
+              ) : (
+                <View style={styles.emptyState}>
+                  <Ionicons name="document-outline" size={64} color="#ccc" />
+                  <Text style={styles.emptyStateText}>Aucun document trouvé</Text>
+                  <Text style={styles.emptyStateSubtext}>
+                    {searchQuery ? 'Essayez avec d\'autres mots-clés' : 'Sélectionnez une autre catégorie'}
+                  </Text>
+                </View>
+              )}
+            </>
           )}
         </View>
       </ScrollView>
@@ -381,7 +530,8 @@ const styles = StyleSheet.create({
         width: 100,
         marginRight: 0,
         marginBottom: 12,
-        flex: '0 0 auto',
+        flexGrow: 0,
+        flexShrink: 0,
       },
     }),
   },
@@ -487,6 +637,29 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#999',
     textAlign: 'center',
+  },
+  groupHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
+  backButton: {
+    padding: 8,
+    marginRight: 12,
+    borderRadius: 20,
+    backgroundColor: `${MedicalTheme.textOnPrimary}20`,
+  },
+  groupHeaderText: {
+    flex: 1,
+  },
+  loadingState: {
+    alignItems: 'center',
+    paddingVertical: 40,
+  },
+  loadingText: {
+    fontSize: 16,
+    color: MedicalTheme.textSecondary,
+    fontStyle: 'italic',
   },
 });
 

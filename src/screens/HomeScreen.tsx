@@ -6,6 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Platform,
+  Image,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
@@ -57,9 +58,11 @@ const HomeScreen: React.FC = () => {
         {/* Hero Section */}
         <View style={styles.heroSection}>
           <View style={styles.logoContainer}>
-            <View style={styles.logo}>
-              <Text style={styles.logoText}>ST</Text>
-            </View>
+            <Image 
+              source={require('../../assets/logo.jpg')} 
+              style={styles.logoImage}
+              resizeMode="contain"
+            />
           </View>
           <Text style={styles.heroTitle}>
             Formation Pratique en{'\n'}
@@ -168,21 +171,22 @@ const styles = StyleSheet.create({
   },
   logoContainer: {
     marginBottom: 20,
-  },
-  logo: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-    backgroundColor: MedicalTheme.primary,
-    justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 2,
-    borderColor: MedicalTheme.primaryLight,
   },
-  logoText: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: MedicalTheme.textOnPrimary,
+  logoImage: {
+    width: 180,
+    height: 120,
+    borderRadius: 8,
+    ...Platform.select({
+      ios: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 4,
+      },
+      android: { elevation: 6 },
+      web: { boxShadow: '0 4px 12px rgba(0,0,0,0.15)' },
+    }),
   },
   heroTitle: {
     fontSize: 24,

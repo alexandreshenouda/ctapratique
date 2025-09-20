@@ -47,43 +47,28 @@ export default function App() {
             paddingTop: 8,
             height: 60,
           },
-          headerStyle: {
-            backgroundColor: MedicalTheme.primary,
-            elevation: 4,
-            shadowOpacity: 0.1,
-          },
-          headerTitleStyle: {
-            fontWeight: 'bold',
-            color: MedicalTheme.textOnPrimary,
-            fontSize: 18,
-          },
-          headerTintColor: MedicalTheme.textOnPrimary,
+                 headerShown: false,
         })}
       >
         <Tab.Screen 
           name="Accueil" 
           component={HomeScreen}
-          options={{ headerTitle: "C ta Pratique" }}
         />
         <Tab.Screen 
           name="Formation" 
           component={FormationScreen}
-          options={{ headerTitle: "C ta Pratique" }}
         />
         <Tab.Screen 
           name="Documents" 
           component={DocumentsScreen}
-          options={{ headerTitle: "C ta Pratique" }}
         />
         <Tab.Screen 
           name="Contact" 
           component={ContactScreen}
-          options={{ headerTitle: "C ta Pratique" }}
         />
         <Tab.Screen 
           name="Profil" 
           component={ProfileScreen}
-          options={{ headerTitle: "C ta Pratique" }}
         />
       </Tab.Navigator>
     </NavigationContainer>
