@@ -9,7 +9,9 @@
     "web": "expo start --web",
     "eject": "expo eject",
     "generate-docs": "node scripts/generateDocuments.js",
-    "dev": "npm run generate-docs && npm start"
+    "dev": "npm run generate-docs && npm start",
+    "build:web": "npm run generate-docs && npx expo export --platform web --source-maps",
+    "deploy:prepare": "npm run build:web && powershell Compress-Archive -Path 'dist\\*' -DestinationPath 'stephane-app-web.zip' -Force"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.2",

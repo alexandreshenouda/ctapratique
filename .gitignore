@@ -53,6 +53,9 @@ buck-out/
 dist/
 web-build/
 
+# Deployment archives
+stephane-app-web.zip
+
 # Temporary files created by Metro to check the health of the file watcher
 .metro-health-check*
 
