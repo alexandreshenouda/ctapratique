@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {
   View,
   Text,
@@ -12,8 +12,8 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
-import { loadDocuments, loadDocumentsGrouped, loadDocumentsBySubCategory, DocumentData, DocumentOrGroup, DocumentGroup, DocumentItem, SubCategoryGroup } from '../utils/csvLoader';
-import MedicalTheme, { CategoryColors } from '../theme/colors';
+import { loadDocuments, loadDocumentsGrouped, loadDocumentsBySubCategory, loadCategories, getCategoryInfoList, DocumentData, DocumentOrGroup, DocumentGroup, DocumentItem, SubCategoryGroup, CategoryGroup, CategoryInfo } from '../utils/csvLoader';
+import MedicalTheme from '../theme/colors';
 
 // Using DocumentData from csvLoader instead of local interface
 
@@ -87,9 +87,13 @@ interface DocumentOrGroupItemProps {
 }
 
 const DocumentOrGroupItem: React.FC<DocumentOrGroupItemProps> = ({ item, onPress }) => {
+  const isCategory = 'isCategory' in item && item.isCategory;
   const isSubCategory = 'isSubCategory' in item && item.isSubCategory;
   
   const getIcon = () => {
+    if (isCategory) {
+      return 'folder';
+    }
     if (isSubCategory) {
       return 'folder-open';
     }
@@ -107,7 +111,7 @@ const DocumentOrGroupItem: React.FC<DocumentOrGroupItemProps> = ({ item, onPress
   };
 
   const getActionIcon = () => {
-    if (isSubCategory) {
+    if (isCategory || isSubCategory) {
       return 'chevron-forward';
     }
     if ('isGroup' in item && item.isGroup) {
@@ -117,6 +121,10 @@ const DocumentOrGroupItem: React.FC<DocumentOrGroupItemProps> = ({ item, onPress
   };
 
   const getDisplayType = () => {
+    if (isCategory) {
+      const cat = item as CategoryGroup;
+      return `${cat.count} document${cat.count > 1 ? 's' : ''}`;
+    }
     if (isSubCategory) {
       const subCat = item as SubCategoryGroup;
       return `${subCat.count} document${subCat.count > 1 ? 's' : ''}`;
@@ -128,6 +136,9 @@ const DocumentOrGroupItem: React.FC<DocumentOrGroupItemProps> = ({ item, onPress
   };
 
   const getTitle = () => {
+    if (isCategory) {
+      return (item as CategoryGroup).category;
+    }
     if (isSubCategory) {
       return (item as SubCategoryGroup).subCategory;
     }
@@ -135,6 +146,10 @@ const DocumentOrGroupItem: React.FC<DocumentOrGroupItemProps> = ({ item, onPress
   };
 
   const getDescription = () => {
+    if (isCategory) {
+      const cat = item as CategoryGroup;
+      return `${cat.count} document${cat.count > 1 ? 's' : ''} disponible${cat.count > 1 ? 's' : ''}`;
+    }
     if (isSubCategory) {
       const subCat = item as SubCategoryGroup;
       return `${subCat.count} document${subCat.count > 1 ? 's' : ''} disponible${subCat.count > 1 ? 's' : ''}`;
@@ -152,7 +167,7 @@ const DocumentOrGroupItem: React.FC<DocumentOrGroupItemProps> = ({ item, onPress
         <Text style={styles.documentDescription}>{getDescription()}</Text>
         <View style={styles.documentMeta}>
           <Text style={styles.documentType}>{getDisplayType()}</Text>
-          {!isSubCategory && !('isGroup' in item && item.isGroup) && 'year' in item && (item as DocumentItem).year && (
+          {!isCategory && !isSubCategory && !('isGroup' in item && item.isGroup) && 'year' in item && (item as DocumentItem).year && (
             <Text style={styles.documentYear}>{(item as DocumentItem).year}</Text>
           )}
         </View>
@@ -164,6 +179,7 @@ const DocumentOrGroupItem: React.FC<DocumentOrGroupItemProps> = ({ item, onPress
 
 const DocumentsScreen: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState('Tous');
+  const [selectedCategoryForSubCat, setSelectedCategoryForSubCat] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [documents, setDocuments] = useState<DocumentData[]>([]);
   const [documentsGrouped, setDocumentsGrouped] = useState<DocumentOrGroup[]>([]);
@@ -184,20 +200,16 @@ const DocumentsScreen: React.FC = () => {
     }
   }, []);
 
+  // Dynamically generate categories from documents
+  const categories = useMemo(() => {
+    return getCategoryInfoList();
+  }, [documents]);
 
-  const categories = [
-    { key: 'Tous', title: 'Tous', icon: 'apps' as const, color: CategoryColors['Tous'] },
-    { key: 'URPS', title: 'URPS', icon: 'business' as const, color: CategoryColors['URPS'] },
-    { key: 'COVID', title: 'COVID', icon: 'shield-checkmark' as const, color: CategoryColors['COVID'] },
-    { key: 'Formation', title: 'Formation', icon: 'school' as const, color: CategoryColors['Formation'] },
-    { key: 'Hygiène', title: 'Hygiène', icon: 'water' as const, color: CategoryColors['Hygiène'] },
-    { key: 'Stérilisation', title: 'Stérilisation', icon: 'flask' as const, color: CategoryColors['Stérilisation'] },
-    { key: 'Sécurité', title: 'Sécurité', icon: 'shield' as const, color: CategoryColors['Sécurité'] },
-    { key: 'Réglementation', title: 'Réglementation', icon: 'document-text' as const, color: CategoryColors['Réglementation'] },
-    { key: 'Certification', title: 'Certification', icon: 'ribbon' as const, color: CategoryColors['Certification'] },
-    { key: 'Protocole', title: 'Protocole', icon: 'clipboard' as const, color: CategoryColors['Protocole'] },
-    { key: 'Partenaires', title: 'Partenaires', icon: 'business' as const, color: MedicalTheme.info },
-  ];
+  const handleCategoryPress = (category: CategoryGroup) => {
+    setIsGroupTransitioning(true);
+    setSelectedCategoryForSubCat(category.category);
+    setIsGroupTransitioning(false);
+  };
 
   const handleGroupPress = (group: DocumentGroup) => {
     setIsGroupTransitioning(true);
@@ -229,8 +241,14 @@ const DocumentsScreen: React.FC = () => {
     setSelectedSubCategory(null);
   };
 
+  const handleBackFromCategoryView = () => {
+    setSelectedCategoryForSubCat(null);
+  };
+
   const handleDocumentOrGroupPress = (item: DocumentOrGroup) => {
-    if ('isSubCategory' in item && item.isSubCategory) {
+    if ('isCategory' in item && item.isCategory) {
+      handleCategoryPress(item as CategoryGroup);
+    } else if ('isSubCategory' in item && item.isSubCategory) {
       handleSubCategoryPress(item as SubCategoryGroup);
     } else if ('isGroup' in item && item.isGroup) {
       handleGroupPress(item as DocumentGroup);
@@ -253,8 +271,22 @@ const DocumentsScreen: React.FC = () => {
   };
 
   const getGroupedDocumentsByCategory = () => {
-    // Use the new sub-category grouping
-    let filtered = loadDocumentsBySubCategory(selectedCategory);
+    // If we're on "Tous" and no specific category selected, show all categories
+    if (selectedCategory === 'Tous' && !selectedCategoryForSubCat) {
+      let filtered = loadCategories();
+      
+      if (searchQuery) {
+        filtered = filtered.filter(cat => 
+          cat.category.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+      }
+      
+      return filtered;
+    }
+    
+    // If a specific category is selected from the main list, show its sub-categories
+    const categoryToShow = selectedCategoryForSubCat || selectedCategory;
+    let filtered = loadDocumentsBySubCategory(categoryToShow);
     
     if (searchQuery) {
       filtered = filtered.filter(item => {
@@ -281,10 +313,6 @@ const DocumentsScreen: React.FC = () => {
     return filtered;
   };
 
-  const getCategoryCount = (categoryKey: string) => {
-    if (categoryKey === 'Tous') return documents.length;
-    return documents.filter(doc => doc.category === categoryKey).length;
-  };
 
   const handleDocumentPress = (document: DocumentData) => {
     const actionText = document.iconType === 'external' ? 'Accéder au lien' : 'Télécharger';
@@ -351,6 +379,16 @@ const DocumentsScreen: React.FC = () => {
               <Text style={styles.headerSubtitle}>{selectedGroup.documents.length} documents</Text>
             </View>
           </View>
+        ) : selectedCategoryForSubCat ? (
+          <View style={styles.groupHeader}>
+            <TouchableOpacity style={styles.backButton} onPress={handleBackFromCategoryView}>
+              <Ionicons name="arrow-back" size={24} color={MedicalTheme.textOnPrimary} />
+            </TouchableOpacity>
+            <View style={styles.groupHeaderText}>
+              <Text style={styles.headerTitle}>{selectedCategoryForSubCat}</Text>
+              <Text style={styles.headerSubtitle}>Sous-catégories</Text>
+            </View>
+          </View>
         ) : (
           <>
             <Text style={styles.headerTitle}>Documents Professionnels</Text>
@@ -388,12 +426,13 @@ const DocumentsScreen: React.FC = () => {
                 <CategoryCard
                   key={category.key}
                   title={category.title}
-                  icon={category.icon}
+                  icon={category.icon as keyof typeof Ionicons.glyphMap}
                   color={category.color}
-                  count={getCategoryCount(category.key)}
+                  count={category.count}
                   isSelected={selectedCategory === category.key}
                   onPress={() => {
                     setSelectedCategory(category.key);
+                    setSelectedCategoryForSubCat(null);
                     setSelectedSubCategory(null);
                     setSelectedGroup(null);
                   }}
@@ -411,12 +450,13 @@ const DocumentsScreen: React.FC = () => {
                 <CategoryCard
                   key={category.key}
                   title={category.title}
-                  icon={category.icon}
+                  icon={category.icon as keyof typeof Ionicons.glyphMap}
                   color={category.color}
-                  count={getCategoryCount(category.key)}
+                  count={category.count}
                   isSelected={selectedCategory === category.key}
                   onPress={() => {
                     setSelectedCategory(category.key);
+                    setSelectedCategoryForSubCat(null);
                     setSelectedSubCategory(null);
                     setSelectedGroup(null);
                   }}
@@ -519,7 +559,11 @@ const DocumentsScreen: React.FC = () => {
             <>
               <View style={styles.documentsHeader}>
                 <Text style={styles.sectionTitle}>
-                  {selectedCategory === 'Tous' ? 'Tous les documents' : selectedCategory}
+                  {selectedCategory === 'Tous' && !selectedCategoryForSubCat 
+                    ? 'Toutes les catégories' 
+                    : (selectedCategoryForSubCat || selectedCategory !== 'Tous')
+                      ? `${selectedCategoryForSubCat || selectedCategory}`
+                      : selectedCategory}
                 </Text>
                 <Text style={styles.documentsCount}>
                   {filteredGroupedDocuments.length} élément{filteredGroupedDocuments.length > 1 ? 's' : ''}
@@ -528,10 +572,14 @@ const DocumentsScreen: React.FC = () => {
 
               {filteredGroupedDocuments.length > 0 ? (
                 filteredGroupedDocuments.map((item, index) => {
-                  const keyPrefix = 'isSubCategory' in item && item.isSubCategory 
-                    ? 'subcat' 
-                    : ('isGroup' in item && item.isGroup ? 'group' : 'item');
-                  const keyTitle = 'title' in item ? item.title : ('subCategory' in item ? item.subCategory : 'unknown');
+                  const keyPrefix = 'isCategory' in item && item.isCategory 
+                    ? 'category'
+                    : ('isSubCategory' in item && item.isSubCategory 
+                      ? 'subcat' 
+                      : ('isGroup' in item && item.isGroup ? 'group' : 'item'));
+                  const keyTitle = 'category' in item && 'isCategory' in item && item.isCategory
+                    ? item.category
+                    : ('title' in item ? item.title : ('subCategory' in item ? item.subCategory : 'unknown'));
                   return (
                     <DocumentOrGroupItem
                       key={`main-${item.id}-${keyPrefix}-${index}-${keyTitle}`}

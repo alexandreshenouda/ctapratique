@@ -39,7 +39,24 @@ export interface DocumentItem {
   color: string;
 }
 
-export type DocumentOrGroup = DocumentGroup | DocumentItem | SubCategoryGroup;
+export interface CategoryGroup {
+  id: string;
+  category: string;
+  isCategory: true;
+  color: string;
+  count: number;
+  icon: string;
+}
+
+export interface CategoryInfo {
+  key: string;
+  title: string;
+  icon: string;
+  color: string;
+  count: number;
+}
+
+export type DocumentOrGroup = DocumentGroup | DocumentItem | SubCategoryGroup | CategoryGroup;
 
 export function loadDocuments(): DocumentData[] {
   // Simply return the data from the generated file
@@ -91,14 +108,93 @@ export function loadDocumentsGrouped(): DocumentOrGroup[] {
   return result;
 }
 
+// Icon mapping for categories
+const categoryIconMap: { [key: string]: string } = {
+  'URPS': 'business',
+  'COVID': 'shield-checkmark',
+  'Guides': 'book',
+  'Certification': 'ribbon',
+  'Congrès': 'people',
+  'Articles': 'newspaper',
+  'Fiches': 'documents',
+  'Surveillance': 'eye',
+  'Spécialisations': 'medical',
+  'Déchets': 'trash',
+  'Contrôles': 'checkmark-circle',
+  'Réglementation': 'document-text',
+  'International': 'globe',
+  'Médias': 'play-circle',
+  'Partenaires': 'handshake',
+};
+
+// Get all available categories with their document counts
+export function loadCategories(): CategoryGroup[] {
+  const documents = loadDocuments();
+  const categoryMap = new Map<string, { docs: DocumentData[], color: string }>();
+  
+  documents.forEach(doc => {
+    if (!categoryMap.has(doc.category)) {
+      categoryMap.set(doc.category, { docs: [], color: doc.color });
+    }
+    categoryMap.get(doc.category)!.docs.push(doc);
+  });
+  
+  const categories: CategoryGroup[] = [];
+  categoryMap.forEach((data, categoryName) => {
+    categories.push({
+      id: `cat-${categoryName}`,
+      category: categoryName,
+      isCategory: true,
+      color: data.color,
+      count: data.docs.length,
+      icon: categoryIconMap[categoryName] || 'folder'
+    });
+  });
+  
+  return categories;
+}
+
+// Get category info for the filter chips
+export function getCategoryInfoList(): CategoryInfo[] {
+  const documents = loadDocuments();
+  const categoryMap = new Map<string, { color: string, count: number }>();
+  
+  documents.forEach(doc => {
+    if (!categoryMap.has(doc.category)) {
+      categoryMap.set(doc.category, { color: doc.color, count: 0 });
+    }
+    categoryMap.get(doc.category)!.count++;
+  });
+  
+  const categories: CategoryInfo[] = [
+    {
+      key: 'Tous',
+      title: 'Tous',
+      icon: 'apps',
+      color: '#007AFF',
+      count: documents.length
+    }
+  ];
+  
+  categoryMap.forEach((data, categoryName) => {
+    categories.push({
+      key: categoryName,
+      title: categoryName,
+      icon: categoryIconMap[categoryName] || 'folder',
+      color: data.color,
+      count: data.count
+    });
+  });
+  
+  return categories;
+}
+
 // Group documents by sub-category within a category
 export function loadDocumentsBySubCategory(category: string): DocumentOrGroup[] {
   const documents = loadDocuments();
   
-  // Filter by category (or all if "Tous")
-  const filteredDocs = category === 'Tous' 
-    ? documents 
-    : documents.filter(doc => doc.category === category);
+  // Filter by category
+  const filteredDocs = documents.filter(doc => doc.category === category);
   
   // First, group by ID (for duplicate documents)
   const groupedByIdMap = new Map<string, DocumentData[]>();
