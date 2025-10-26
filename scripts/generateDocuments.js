@@ -16,6 +16,7 @@ export interface DocumentData {
   id: string;
   title: string;
   category: string;
+  subCategory?: string;
   type: string;
   year?: string;
   description: string;
