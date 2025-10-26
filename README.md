@@ -9,7 +9,6 @@ Une application React Native cross-platform construite avec Expo qui fonctionne 
 - **Écran d'Accueil** : Section hero avec statistiques et présentation professionnelle
 - **Formation** : Programmes de formation détaillés et ateliers
 - **Contact** : Formulaire de contact complet et informations
-- **Profil** : Informations professionnelles personnelles
 - **Interface Moderne** : Design épuré et professionnel avec styles spécifiques à chaque plateforme
 
 ## Démarrage
@@ -128,8 +127,7 @@ stephane-app/
 │   │   ├── HomeScreen.tsx         # Section hero et services
 │   │   ├── FormationScreen.tsx    # Programmes de formation
 │   │   ├── DocumentsScreen.tsx    # Documents avec intégration CSV
-│   │   ├── ContactScreen.tsx      # Formulaire de contact et infos
-│   │   └── ProfileScreen.tsx      # Informations personnelles
+│   │   └── ContactScreen.tsx      # Formulaire de contact et infos
 │   ├── data/
 │   │   └── documents.ts           # Généré depuis CSV (auto-mis à jour)
 │   └── utils/

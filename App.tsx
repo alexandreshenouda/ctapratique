@@ -8,7 +8,6 @@ import HomeScreen from './src/screens/HomeScreen';
 import FormationScreen from './src/screens/FormationScreen';
 import DocumentsScreen from './src/screens/DocumentsScreen';
 import ContactScreen from './src/screens/ContactScreen';
-import ProfileScreen from './src/screens/ProfileScreen';
 import MedicalTheme from './src/theme/colors';
 
 const Tab = createBottomTabNavigator();
@@ -30,8 +29,6 @@ export default function App() {
               iconName = focused ? 'document-text' : 'document-text-outline';
             } else if (route.name === 'Contact') {
               iconName = focused ? 'mail' : 'mail-outline';
-            } else if (route.name === 'Profil') {
-              iconName = focused ? 'person' : 'person-outline';
             } else {
               iconName = 'ellipse';
             }
@@ -65,10 +62,6 @@ export default function App() {
         <Tab.Screen 
           name="Contact" 
           component={ContactScreen}
-        />
-        <Tab.Screen 
-          name="Profil" 
-          component={ProfileScreen}
         />
       </Tab.Navigator>
     </NavigationContainer>
