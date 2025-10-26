@@ -13,6 +13,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { loadDocuments, loadDocumentsGrouped, loadDocumentsBySubCategory, loadCategories, getCategoryInfoList, DocumentData, DocumentOrGroup, DocumentGroup, DocumentItem, SubCategoryGroup, CategoryGroup, CategoryInfo } from '../utils/csvLoader';
+import { isLocalFile, openLocalFile } from '../utils/localAssets';
 import MedicalTheme from '../theme/colors';
 
 // Using DocumentData from csvLoader instead of local interface
@@ -314,7 +315,21 @@ const DocumentsScreen: React.FC = () => {
   };
 
 
-  const handleDocumentPress = (document: DocumentData) => {
+  const handleDocumentPress = async (document: DocumentData) => {
+    const targetUrl = document.url || 'https://play.senzu.app/s/53182@3b5e6adfe66aea771c693ea21860551b';
+    
+    // Vérifier si c'est un fichier local
+    if (isLocalFile(targetUrl)) {
+      try {
+        await openLocalFile(targetUrl);
+      } catch (error) {
+        Alert.alert('Erreur', 'Impossible d\'ouvrir le fichier local');
+        console.error('Erreur ouverture fichier local:', error);
+      }
+      return;
+    }
+    
+    // Fichier distant (logique existante)
     const actionText = document.iconType === 'external' ? 'Accéder au lien' : 'Télécharger';
     const descriptionText = document.iconType === 'external' 
       ? 'Ce document est disponible via un lien externe.'
@@ -322,8 +337,6 @@ const DocumentsScreen: React.FC = () => {
     
     // Sur web, Alert ne fonctionne pas bien, on ouvre directement
     if (Platform.OS === 'web') {
-      const targetUrl = document.url || 'https://play.senzu.app/s/53182@3b5e6adfe66aea771c693ea21860551b';
-      
       // Ouvrir le lien
       if (typeof window !== 'undefined' && window.open) {
         window.open(targetUrl, '_blank');
@@ -341,7 +354,6 @@ const DocumentsScreen: React.FC = () => {
           text: actionText, 
           onPress: async () => {
             try {
-              const targetUrl = document.url || 'https://play.senzu.app/s/53182@3b5e6adfe66aea771c693ea21860551b';
               await Linking.openURL(targetUrl);
             } catch (error) {
               Alert.alert('Erreur', 'Impossible d\'ouvrir le lien');

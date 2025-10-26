@@ -9,8 +9,10 @@
     "web": "expo start --web",
     "eject": "expo eject",
     "generate-docs": "node scripts/generateDocuments.js",
-    "dev": "npm run generate-docs && npm start",
-    "build:web": "npm run generate-docs && npx expo export --platform web --source-maps",
+    "generate-local-assets": "node scripts/generateLocalAssets.js",
+    "generate-all": "npm run generate-docs && npm run generate-local-assets",
+    "dev": "npm run generate-all && npm start",
+    "build:web": "npm run generate-all && npx expo export --platform web --source-maps",
     "deploy:prepare": "npm run build:web && powershell Compress-Archive -Path 'dist\\*' -DestinationPath 'stephane-app-web.zip' -Force"
   },
   "dependencies": {
@@ -20,7 +22,10 @@
     "@react-navigation/stack": "^6.3.20",
     "babel-preset-expo": "^54.0.2",
     "expo": "~54.0.9",
+    "expo-asset": "~12.0.9",
+    "expo-file-system": "~19.0.17",
     "expo-font": "~14.0.8",
+    "expo-sharing": "~14.0.7",
     "expo-status-bar": "~3.0.8",
     "react": "19.1.0",
     "react-dom": "19.1.0",
