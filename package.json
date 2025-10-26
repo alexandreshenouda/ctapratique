@@ -12,7 +12,8 @@
     "generate-local-assets": "node scripts/generateLocalAssets.js",
     "generate-all": "npm run generate-docs && npm run generate-local-assets",
     "dev": "npm run generate-all && npm start",
-    "build:web": "npm run generate-all && npx expo export --platform web --source-maps",
+    "build:web": "npm run generate-all && npx expo export --platform web --source-maps && node scripts/fixWebPaths.js",
+    "serve:web": "npx serve dist -p 3000",
     "deploy:prepare": "npm run build:web && powershell Compress-Archive -Path 'dist\\*' -DestinationPath 'stephane-app-web.zip' -Force"
   },
   "dependencies": {
