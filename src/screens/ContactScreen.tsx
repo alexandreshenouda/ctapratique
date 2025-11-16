@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -11,6 +11,7 @@ import {
   Linking,
   Image,
   ActivityIndicator,
+  Animated,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
@@ -48,6 +49,31 @@ const ContactScreen: React.FC = () => {
     message: '',
   });
   const [isSending, setIsSending] = useState(false);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [successOpacity] = useState(new Animated.Value(0));
+
+  // Animation du message de succès
+  useEffect(() => {
+    if (showSuccessMessage) {
+      // Fade in
+      Animated.sequence([
+        Animated.timing(successOpacity, {
+          toValue: 1,
+          duration: 300,
+          useNativeDriver: true,
+        }),
+        Animated.delay(3000),
+        // Fade out
+        Animated.timing(successOpacity, {
+          toValue: 0,
+          duration: 300,
+          useNativeDriver: true,
+        }),
+      ]).start(() => {
+        setShowSuccessMessage(false);
+      });
+    }
+  }, [showSuccessMessage, successOpacity]);
 
   const handleInputChange = (field: string, value: string) => {
     setForm(prev => ({ ...prev, [field]: value }));
@@ -100,21 +126,27 @@ const ContactScreen: React.FC = () => {
       const data = await response.json();
 
       if (data.success) {
-        Alert.alert(
-          'Message envoyé',
-          'Merci pour votre message ! Nous vous contacterons bientôt.',
-          [{ text: 'OK', onPress: () => {
-            setForm({
-              nom: '',
-              email: '',
-              telephone: '',
-              adresse: '',
-              ville: '',
-              objet: '',
-              message: '',
-            });
-          }}]
-        );
+        // Nettoyer le formulaire immédiatement
+        setForm({
+          nom: '',
+          email: '',
+          telephone: '',
+          adresse: '',
+          ville: '',
+          objet: '',
+          message: '',
+        });
+        
+        // Afficher le message de succès animé
+        setShowSuccessMessage(true);
+        
+        // Afficher aussi une alerte sur mobile
+        if (Platform.OS !== 'web') {
+          Alert.alert(
+            'Message envoyé',
+            'Merci pour votre message ! Nous vous contacterons bientôt.'
+          );
+        }
       } else {
         throw new Error(data.message || 'Erreur lors de l\'envoi');
       }
@@ -187,6 +219,24 @@ const ContactScreen: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      {/* Message de succès */}
+      {showSuccessMessage && (
+        <Animated.View 
+          style={[
+            styles.successBanner,
+            { opacity: successOpacity }
+          ]}
+        >
+          <Ionicons name="checkmark-circle" size={24} color="white" />
+          <View style={styles.successTextContainer}>
+            <Text style={styles.successTitle}>Message envoyé !</Text>
+            <Text style={styles.successMessage}>
+              Merci pour votre message. Nous vous contacterons bientôt.
+            </Text>
+          </View>
+        </Animated.View>
+      )}
+      
       {/* Logo */}
       <View style={styles.logoContainer}>
         <Image 
@@ -492,6 +542,47 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  successBanner: {
+    position: 'absolute',
+    top: Platform.OS === 'web' ? 20 : 10,
+    left: 20,
+    right: 20,
+    backgroundColor: '#4CAF50',
+    borderRadius: 12,
+    padding: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+    zIndex: 1000,
+    ...Platform.select({
+      ios: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.3,
+        shadowRadius: 8,
+      },
+      android: {
+        elevation: 8,
+      },
+      web: {
+        boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+      },
+    }),
+  },
+  successTextContainer: {
+    flex: 1,
+    marginLeft: 12,
+  },
+  successTitle: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 4,
+  },
+  successMessage: {
+    color: 'white',
+    fontSize: 14,
+    opacity: 0.95,
   },
 });
 
