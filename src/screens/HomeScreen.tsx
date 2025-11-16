@@ -65,7 +65,7 @@ const HomeScreen: React.FC = () => {
             />
           </View>
           <Text style={styles.heroTitle}>
-            Formation Pratique en{'\n'}
+            Formateur en{'\n'}
             <Text style={styles.heroTitleHighlight}>Hygiène & Stérilisation Dentaire</Text>
           </Text>
           <Text style={styles.heroSubtitle}>

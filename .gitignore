@@ -64,3 +64,6 @@ stephane-app-web.zip
 
 # TypeScript
 *.tsbuildinfo
+
+#Generated files
+stephane-app-web/

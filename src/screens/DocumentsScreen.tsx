@@ -9,6 +9,7 @@ import {
   TextInput,
   Alert,
   Linking,
+  Image,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
@@ -369,6 +370,15 @@ const DocumentsScreen: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      {/* Logo */}
+      <View style={styles.logoContainer}>
+        <Image 
+          source={require('../../assets/logo.jpg')} 
+          style={styles.logoImage}
+          resizeMode="contain"
+        />
+      </View>
+      
       {/* Header */}
       <View style={styles.header}>
         {selectedSubCategory ? (
@@ -621,6 +631,30 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: MedicalTheme.background,
+  },
+  logoContainer: {
+    paddingVertical: 15,
+    alignItems: 'center',
+    backgroundColor: '#fff',
+  },
+  logoImage: {
+    width: 120,
+    height: 80,
+    borderRadius: 8,
+    ...Platform.select({
+      ios: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+      },
+      android: {
+        elevation: 3,
+      },
+      default: {
+        boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
+      },
+    }),
   },
   header: {
     backgroundColor: MedicalTheme.primary,

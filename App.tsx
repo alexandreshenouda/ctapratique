@@ -51,10 +51,10 @@ export default function App() {
           name="Accueil" 
           component={HomeScreen}
         />
-        <Tab.Screen 
+        {/* <Tab.Screen 
           name="Formation" 
           component={FormationScreen}
-        />
+        /> */}
         <Tab.Screen 
           name="Documents" 
           component={DocumentsScreen}
