@@ -8,7 +8,7 @@ Une application React Native cross-platform construite avec Expo qui fonctionne 
 - **Interface Professionnelle** : Inspirée de la structure de ctapratique.com
 - **Écran d'Accueil** : Section hero avec statistiques et présentation professionnelle
 - **Formation** : Programmes de formation détaillés et ateliers
-- **Contact** : Formulaire de contact fonctionnel avec FormSubmit (gratuit, illimité)
+- **Contact** : Formulaire de contact fonctionnel avec Web3Forms (gratuit, support CORS)
 - **Documents** : Recherche avancée dans les documents avec affichage groupé
 - **Interface Moderne** : Design épuré et professionnel avec styles spécifiques à chaque plateforme
 

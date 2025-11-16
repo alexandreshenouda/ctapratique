@@ -67,37 +67,39 @@ const ContactScreen: React.FC = () => {
       return;
     }
 
+    // Vérifier que Web3Forms est configuré
+    if (CONTACT_CONFIG.accessKey === 'YOUR_ACCESS_KEY') {
+      Alert.alert(
+        'Configuration requise',
+        'Veuillez configurer votre Access Key Web3Forms dans src/config/contact.config.ts\n\n1. Allez sur https://web3forms.com/\n2. Entrez votre email pour recevoir votre Access Key\n3. Remplacez YOUR_ACCESS_KEY dans le fichier de config'
+      );
+      return;
+    }
+
     setIsSending(true);
 
     try {
-      // Préparer les données en JSON pour l'endpoint AJAX
-      const jsonData = {
-        name: form.nom,
-        email: form.email,
-        phone: form.telephone || 'Non renseigné',
-        address: form.adresse || 'Non renseignée',
-        city: form.ville || 'Non renseignée',
-        subject: form.objet || 'Demande de renseignement',
-        message: form.message,
-        _subject: CONTACT_CONFIG.options.subject,
-        _captcha: 'false',
-        _template: 'table',
-      };
+      // Préparer les données pour Web3Forms
+      const formData = new FormData();
+      formData.append('access_key', CONTACT_CONFIG.accessKey);
+      formData.append('name', form.nom);
+      formData.append('email', form.email);
+      formData.append('phone', form.telephone || 'Non renseigné');
+      formData.append('address', form.adresse || 'Non renseignée');
+      formData.append('city', form.ville || 'Non renseignée');
+      formData.append('subject', form.objet || CONTACT_CONFIG.options.subject);
+      formData.append('message', form.message);
+      formData.append('from_name', form.nom);
 
-      // Envoyer via FormSubmit AJAX endpoint (supporte CORS)
-      const response = await fetch(
-        `https://formsubmit.co/ajax/${CONTACT_CONFIG.recipientEmail}`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-          },
-          body: JSON.stringify(jsonData),
-        }
-      );
+      // Envoyer via Web3Forms (supporte CORS)
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData,
+      });
 
-      if (response.ok) {
+      const data = await response.json();
+
+      if (data.success) {
         Alert.alert(
           'Message envoyé',
           'Merci pour votre message ! Nous vous contacterons bientôt.',
@@ -114,7 +116,7 @@ const ContactScreen: React.FC = () => {
           }}]
         );
       } else {
-        throw new Error('Erreur lors de l\'envoi');
+        throw new Error(data.message || 'Erreur lors de l\'envoi');
       }
     } catch (error) {
       console.error('Erreur lors de l\'envoi:', error);
