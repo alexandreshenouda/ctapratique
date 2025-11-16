@@ -1,37 +1,231 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>CTaPratique</title>
-    <!-- The `react-native-web` recommended style reset: https://necolas.github.io/react-native-web/docs/setup/#root-element -->
-    <style id="expo-reset">
-      /* These styles make the body full-height */
-      html,
-      body {
-        height: 100%;
-      }
-      /* These styles disable body scrolling if you are using <ScrollView> */
-      body {
-        overflow: hidden;
-      }
-      /* These styles make the root element full-height */
-      #root {
-        display: flex;
-        height: 100%;
-        flex: 1;
-      }
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accès sécurisé - CTA Pratique</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #0066CC 0%, #0052A3 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .login-container {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        .logo {
+            width: 100px;
+            height: 70px;
+            margin: 0 auto 30px;
+            display: block;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            color: #0066CC;
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        
+        p {
+            color: #666;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        input[type="password"] {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #E0E0E0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="password"]:focus {
+            outline: none;
+            border-color: #0066CC;
+        }
+        
+        button {
+            width: 100%;
+            padding: 14px;
+            background: #0066CC;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        button:hover {
+            background: #0052A3;
+        }
+        
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .error {
+            background: #FFE8E8;
+            color: #C00;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            display: none;
+        }
+        
+        .error.show {
+            display: block;
+            animation: shake 0.5s;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            color: #666;
+            margin-top: 20px;
+        }
+        
+        .loading.show {
+            display: block;
+        }
+        
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #0066CC;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 10px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
-  </head>
-
-  <body>
-    <!-- Use static rendering with Expo Router to support running without JavaScript. -->
-    <noscript>
-      You need to enable JavaScript to run this app.
-    </noscript>
-    <!-- The root element for your Expo app. -->
-    <div id="root"></div>
-  <script src="./_expo/static/js/web/AppEntry-decdc043431d53e8c9f6caca96acd97b.js" defer></script>
+</head>
+<body>
+    <div class="login-container">
+        <img src="assets/logo.jpg" alt="Logo" class="logo" onerror="this.style.display='none'">
+        <h1>Accès Sécurisé</h1>
+        <p>Veuillez entrer le mot de passe pour accéder au contenu</p>
+        
+        <div class="error" id="error">Mot de passe incorrect</div>
+        
+        <form id="loginForm">
+            <div class="input-group">
+                <label for="password">Mot de passe</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    name="password" 
+                    placeholder="Entrez le mot de passe"
+                    autocomplete="off"
+                    required
+                >
+            </div>
+            
+            <button type="submit" id="submitBtn">Accéder</button>
+        </form>
+        
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Déchiffrement en cours...</p>
+        </div>
+    </div>
+    
+    <script>
+        const PASSWORD_HASH = '62c63139ca85d4997c293ce794f5d2663f9cb05ad177cd61f761ee4c3db2536a';
+        const ENCRYPTED_FILES = {};
+        
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const password = document.getElementById('password').value;
+            const error = document.getElementById('error');
+            const loading = document.getElementById('loading');
+            const submitBtn = document.getElementById('submitBtn');
+            
+            // Vérifier le hash du mot de passe
+            const enteredHash = CryptoJS.SHA256(password).toString();
+            
+            if (enteredHash !== PASSWORD_HASH) {
+                error.classList.add('show');
+                document.getElementById('password').value = '';
+                setTimeout(() => error.classList.remove('show'), 3000);
+                return;
+            }
+            
+            // Mot de passe correct, déchiffrer et charger l'app
+            error.classList.remove('show');
+            loading.classList.add('show');
+            submitBtn.disabled = true;
+            
+            try {
+                // Stocker le mot de passe en session pour permettre le déchiffrement
+                sessionStorage.setItem('appKey', password);
+                
+                // Attendre un peu pour l'effet visuel
+                await new Promise(resolve => setTimeout(resolve, 500));
+                
+                // Charger la page principale
+                window.location.href = 'app.html';
+            } catch (error) {
+                console.error('Erreur:', error);
+                alert('Une erreur est survenue lors du déchiffrement');
+                loading.classList.remove('show');
+                submitBtn.disabled = false;
+            }
+        });
+        
+        // Focus automatique sur le champ de mot de passe
+        document.getElementById('password').focus();
+    </script>
 </body>
 </html>
