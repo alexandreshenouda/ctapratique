@@ -115,6 +115,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     
+    # Permissions nécessaires pour déployer sur GitHub Pages
+    permissions:
+      contents: write
+    
     steps:
     - uses: actions/checkout@v3
     
@@ -136,11 +140,39 @@ jobs:
         publish_dir: ./dist
 ```
 
-2. **Commit et push** ce fichier
+2. **Activer les permissions GitHub Actions** (si nécessaire) :
+   - Allez dans Settings > Actions > General
+   - Scroll jusqu'à "Workflow permissions"
+   - Sélectionnez "Read and write permissions"
+   - Sauvegardez
 
-3. À chaque push sur `main`, votre site sera automatiquement déployé !
+3. **Commit et push** le fichier workflow
+
+4. À chaque push sur `main`, votre site sera automatiquement déployé !
 
 ## Dépannage
+
+### Erreur 403 - Permission denied (GitHub Actions)
+
+Si vous obtenez `Permission denied to github-actions[bot]` :
+
+1. **Vérifiez les permissions dans le workflow** :
+   - Le fichier `.github/workflows/deploy.yml` doit contenir :
+   ```yaml
+   permissions:
+     contents: write
+   ```
+
+2. **Activez les permissions dans le repo** :
+   - Allez dans Settings > Actions > General
+   - Scroll jusqu'à "Workflow permissions"
+   - Sélectionnez "Read and write permissions"
+   - Cliquez sur Save
+
+3. **Relancez le workflow** :
+   - Allez dans l'onglet Actions
+   - Sélectionnez le workflow échoué
+   - Cliquez sur "Re-run jobs"
 
 ### Erreur 404 sur les fichiers
 

@@ -8,6 +8,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     
+    # Permissions nécessaires pour déployer sur GitHub Pages
+    permissions:
+      contents: write
+    
     steps:
     - uses: actions/checkout@v3
     
