@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
   # Ou lors d'un push sur une branche spécifique
   push:
-    branches: [ secure-deploy ]
+    branches: [ main ]
 
 jobs:
   deploy:
