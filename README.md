@@ -51,6 +51,23 @@ npm start
 
 ## Déploiement Web
 
+### Déploiement sur GitHub Pages
+
+Pour déployer sur GitHub Pages :
+
+```bash
+# Construire l'application
+npm run build:web
+
+# Installer gh-pages (première fois seulement)
+npm install --save-dev gh-pages
+
+# Déployer
+npx gh-pages -d dist
+```
+
+Consultez `DEPLOY_GITHUB_PAGES.md` pour le guide complet avec GitHub Actions.
+
 ### Création du Build de Production
 
 Pour créer un build de production pour le déploiement web :

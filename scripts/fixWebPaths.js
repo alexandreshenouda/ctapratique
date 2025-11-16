@@ -65,9 +65,14 @@ function fixAllPaths(dir, stats = { fixed: 0, scanned: 0 }) {
 }
 
 try {
-  console.log('🔧 Correction des chemins pour file:// ...\n');
+  console.log('🔧 Correction des chemins pour GitHub Pages ...\n');
   
   const stats = fixAllPaths(distPath);
+  
+  // Créer le fichier .nojekyll pour GitHub Pages
+  const nojekyllPath = path.join(distPath, '.nojekyll');
+  fs.writeFileSync(nojekyllPath, '', 'utf8');
+  console.log('  ✓ Créé .nojekyll pour GitHub Pages');
   
   console.log('\n✅ Correction terminée !');
   console.log(`📊 Statistiques :`);
@@ -75,8 +80,8 @@ try {
   console.log(`   - Fichiers modifiés : ${stats.fixed}`);
   console.log('');
   console.log('📂 Vous pouvez maintenant :');
-  console.log('   1. Ouvrir directement dist/index.html dans votre navigateur');
-  console.log('   2. Ou utiliser: npm run serve:web');
+  console.log('   1. Déployer le dossier dist/ sur GitHub Pages');
+  console.log('   2. Ou tester localement: npm run serve:web');
   
 } catch (error) {
   console.error('❌ Erreur lors de la correction des chemins:', error);
