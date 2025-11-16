@@ -17,7 +17,7 @@ Le formulaire de contact utilise **Web3Forms**, un service gratuit spécialement
 ### Étape 1 : Obtenir votre Access Key
 
 1. **Allez sur** https://web3forms.com/
-2. **Entrez votre email** : `felzou23@gmail.com` (ou votre email)
+2. **Entrez votre email** : `contact@ctapratique.com` (ou votre email)
 3. **Cliquez sur "Get Free Access Key"**
 4. **Vérifiez votre email** - Vous recevrez instantanément :
    - Votre Access Key (ex: `abc123-xyz456-789def`)
@@ -33,7 +33,7 @@ export const CONTACT_CONFIG = {
   // Collez votre Access Key ici (reçue par email)
   accessKey: 'abc123-xyz456-789def',  // ← Votre vraie clé
   
-  recipientEmail: 'felzou23@gmail.com',
+  recipientEmail: 'contact@ctapratique.com',
   
   options: {
     subject: 'Nouveau message depuis le formulaire de contact',

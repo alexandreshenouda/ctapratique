@@ -39,7 +39,7 @@ html-site/
 Le formulaire utilise **Web3Forms** (gratuit, 250 emails/mois).
 
 1. Allez sur https://web3forms.com/
-2. Entrez votre email : `felzou23@gmail.com`
+2. Entrez votre email : `contact@ctapratique.com`
 3. Recevez votre Access Key par email
 4. Ouvrez `js/config.js` et remplacez :
 
@@ -211,7 +211,7 @@ Ce projet est privé et propriétaire.
 ## 💡 Support
 
 Pour toute question :
-- Email : felzou23@gmail.com
+- Email : contact@ctapratique.com
 - Web : https://ctapratique.com
 
 ---

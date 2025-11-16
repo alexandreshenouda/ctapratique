@@ -5,7 +5,7 @@
 //
 // Pour obtenir votre Access Key :
 // 1. Allez sur https://web3forms.com/
-// 2. Entrez votre email : felzou23@gmail.com
+// 2. Entrez votre email : contact@ctapratique.com
 // 3. Vous recevrez votre Access Key instantanément par email
 // 4. Remplacez 'YOUR_ACCESS_KEY' ci-dessous par votre vraie clé
 
@@ -14,7 +14,7 @@ export const CONTACT_CONFIG = {
   accessKey: 'cf2a3400-4be6-44f7-ad20-134a182ba064',
   
   // Email qui recevra les messages (pour référence)
-  recipientEmail: 'felzou23@gmail.com',
+  recipientEmail: 'contact@ctapratique.com',
   
   // Options
   options: {
