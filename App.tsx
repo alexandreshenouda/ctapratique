@@ -47,10 +47,10 @@ export default function App() {
                  headerShown: false,
         })}
       >
-        <Tab.Screen 
+        {/* <Tab.Screen 
           name="Accueil" 
           component={HomeScreen}
-        />
+        /> */}
         {/* <Tab.Screen 
           name="Formation" 
           component={FormationScreen}

@@ -126,44 +126,29 @@ const ContactScreen: React.FC = () => {
       label: 'Téléphone',
       value: '06.73.84.77.66',
       action: handlePhonePress,
-    },
-    {
-      icon: 'location' as const,
-      label: 'Zones de formation',
-      value: '9 villes disponibles',
-    },
-    {
-      icon: 'time' as const,
-      label: 'Horaires',
-      value: 'Lun-Ven: 9h-18h',
-    },
-  ];
-
-  const cities = [
-    'Paris', 'Lyon', 'Marseille', 'Toulouse', 'Nice', 
-    'Nantes', 'Strasbourg', 'Montpellier', 'Bordeaux'
+    }
   ];
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollContent}>
-        {/* Logo */}
-        <View style={styles.logoContainer}>
-          <Image 
-            source={require('../../assets/logo.jpg')} 
-            style={styles.logoImage}
-            resizeMode="contain"
-          />
-        </View>
-        
-        {/* Header */}
-        <View style={styles.header}>
-          <Text style={styles.headerTitle}>Nous Contacter</Text>
-          <Text style={styles.headerSubtitle}>
-            Pour toute demande de renseignement ou de tarif
-          </Text>
-        </View>
+      {/* Logo */}
+      <View style={styles.logoContainer}>
+        <Image 
+          source={require('../../assets/logo.jpg')} 
+          style={styles.logoImage}
+          resizeMode="contain"
+        />
+      </View>
+      
+      {/* Header */}
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>Nous Contacter</Text>
+        <Text style={styles.headerSubtitle}>
+          Pour toute demande de renseignement
+        </Text>
+      </View>
 
+      <ScrollView contentContainerStyle={styles.scrollContent}>
         {/* Contact Methods */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>INFORMATIONS DE CONTACT</Text>
@@ -272,46 +257,6 @@ const ContactScreen: React.FC = () => {
             </TouchableOpacity>
           </View>
         </View>
-
-        {/* Cities Available */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>VILLES DE FORMATION</Text>
-          <View style={styles.citiesContainer}>
-            <Text style={styles.citiesDescription}>
-              Formations disponibles dans 9 villes en France :
-            </Text>
-            <View style={styles.citiesGrid}>
-              {cities.map((city, index) => (
-                <View key={index} style={styles.cityTag}>
-                  <Ionicons name="location" size={16} color="MedicalTheme.primary" />
-                  <Text style={styles.cityText}>{city}</Text>
-                </View>
-              ))}
-            </View>
-            <Text style={styles.citiesNote}>
-              D'autres régions seront disponibles prochainement
-            </Text>
-          </View>
-        </View>
-
-        {/* Quick Stats Reminder */}
-        <View style={styles.statsSection}>
-          <Text style={styles.statsTitle}>Pourquoi nous choisir ?</Text>
-          <View style={styles.statsGrid}>
-            <View style={styles.statItem}>
-              <Text style={styles.statNumber}>30</Text>
-              <Text style={styles.statLabel}>Années d'expérience</Text>
-            </View>
-            <View style={styles.statItem}>
-              <Text style={styles.statNumber}>305</Text>
-              <Text style={styles.statLabel}>Professionnels formés</Text>
-            </View>
-            <View style={styles.statItem}>
-              <Text style={styles.statNumber}>97%</Text>
-              <Text style={styles.statLabel}>Satisfaction</Text>
-            </View>
-          </View>
-        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -369,6 +314,14 @@ const styles = StyleSheet.create({
   },
   section: {
     padding: 20,
+    ...Platform.select({
+      web: {
+        maxWidth: 800,
+        width: '100%',
+        alignSelf: 'center',
+        paddingHorizontal: 40,
+      },
+    }),
   },
   sectionTitle: {
     fontSize: 20,
@@ -466,93 +419,6 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     fontWeight: 'bold',
-  },
-  citiesContainer: {
-    backgroundColor: 'white',
-    borderRadius: 12,
-    padding: 20,
-    ...Platform.select({
-      ios: {
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
-      },
-      android: { elevation: 3 },
-      web: { boxShadow: '0 2px 6px rgba(0,0,0,0.1)' },
-    }),
-  },
-  citiesDescription: {
-    fontSize: 16,
-    color: '#333',
-    marginBottom: 15,
-    fontWeight: '500',
-  },
-  citiesGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 8,
-    marginBottom: 15,
-  },
-  cityTag: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#f0f8ff',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 16,
-    gap: 4,
-  },
-  cityText: {
-    fontSize: 14,
-    color: 'MedicalTheme.primary',
-    fontWeight: '500',
-  },
-  citiesNote: {
-    fontSize: 12,
-    color: '#666',
-    fontStyle: 'italic',
-  },
-  statsSection: {
-    backgroundColor: 'white',
-    margin: 20,
-    borderRadius: 12,
-    padding: 20,
-    ...Platform.select({
-      ios: {
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
-      },
-      android: { elevation: 3 },
-      web: { boxShadow: '0 2px 6px rgba(0,0,0,0.1)' },
-    }),
-  },
-  statsTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333',
-    textAlign: 'center',
-    marginBottom: 20,
-  },
-  statsGrid: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
-  statItem: {
-    alignItems: 'center',
-  },
-  statNumber: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: 'MedicalTheme.primary',
-    marginBottom: 5,
-  },
-  statLabel: {
-    fontSize: 12,
-    color: '#666',
-    textAlign: 'center',
   },
 });
 

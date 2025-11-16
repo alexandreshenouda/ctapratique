@@ -91,13 +91,17 @@ interface DocumentOrGroupItemProps {
 const DocumentOrGroupItem: React.FC<DocumentOrGroupItemProps> = ({ item, onPress }) => {
   const isCategory = 'isCategory' in item && item.isCategory;
   const isSubCategory = 'isSubCategory' in item && item.isSubCategory;
+  const isSearchHeader = 'id' in item && typeof item.id === 'string' && item.id.startsWith('search-header-');
   
   const getIcon = () => {
     if (isCategory) {
       return 'folder';
     }
-    if (isSubCategory) {
+    if (isSubCategory && !isSearchHeader) {
       return 'folder-open';
+    }
+    if (isSearchHeader) {
+      return 'albums-outline';
     }
     if ('isGroup' in item && item.isGroup) {
       return 'folder';
@@ -113,6 +117,9 @@ const DocumentOrGroupItem: React.FC<DocumentOrGroupItemProps> = ({ item, onPress
   };
 
   const getActionIcon = () => {
+    if (isSearchHeader) {
+      return null; // No action icon for search headers
+    }
     if (isCategory || isSubCategory) {
       return 'chevron-forward';
     }
@@ -159,6 +166,21 @@ const DocumentOrGroupItem: React.FC<DocumentOrGroupItemProps> = ({ item, onPress
     return 'description' in item ? item.description : '';
   };
 
+  // Render search headers differently (non-clickable, different style)
+  if (isSearchHeader) {
+    return (
+      <View style={styles.searchHeaderItem}>
+        <View style={[styles.documentIcon, { backgroundColor: `${item.color}15` }]}>
+          <Ionicons name={getIcon() as keyof typeof Ionicons.glyphMap} size={20} color={item.color} />
+        </View>
+        <View style={styles.documentContent}>
+          <Text style={styles.searchHeaderTitle}>{getTitle()}</Text>
+          <Text style={styles.documentDescription}>{getDescription()}</Text>
+        </View>
+      </View>
+    );
+  }
+
   return (
     <TouchableOpacity style={styles.documentItem} onPress={onPress}>
       <View style={[styles.documentIcon, { backgroundColor: `${item.color}15` }]}>
@@ -174,7 +196,7 @@ const DocumentOrGroupItem: React.FC<DocumentOrGroupItemProps> = ({ item, onPress
           )}
         </View>
       </View>
-      <Ionicons name={getActionIcon() as keyof typeof Ionicons.glyphMap} size={20} color="#666" />
+      {getActionIcon() && <Ionicons name={getActionIcon() as keyof typeof Ionicons.glyphMap} size={20} color="#666" />}
     </TouchableOpacity>
   );
 };
@@ -248,6 +270,11 @@ const DocumentsScreen: React.FC = () => {
   };
 
   const handleDocumentOrGroupPress = (item: DocumentOrGroup) => {
+    // Don't handle clicks on search result headers
+    if ('id' in item && typeof item.id === 'string' && item.id.startsWith('search-header-')) {
+      return;
+    }
+    
     if ('isCategory' in item && item.isCategory) {
       handleCategoryPress(item as CategoryGroup);
     } else if ('isSubCategory' in item && item.isSubCategory) {
@@ -278,9 +305,41 @@ const DocumentsScreen: React.FC = () => {
       let filtered = loadCategories();
       
       if (searchQuery) {
-        filtered = filtered.filter(cat => 
-          cat.category.toLowerCase().includes(searchQuery.toLowerCase())
-        );
+        // When searching, show matching documents directly grouped by category
+        const result: DocumentOrGroup[] = [];
+        const categories = loadCategories();
+        
+        categories.forEach(cat => {
+          // Find all documents in this category that match the search
+          const matchingDocs = documents.filter(doc => 
+            doc.category === cat.category &&
+            (doc.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+             doc.description.toLowerCase().includes(searchQuery.toLowerCase()))
+          );
+          
+          if (matchingDocs.length > 0) {
+            // Add category header (non-clickable visual separator)
+            result.push({
+              id: `search-header-${cat.category}`,
+              subCategory: cat.category,
+              category: cat.category,
+              documents: matchingDocs,
+              isSubCategory: true,
+              color: cat.color,
+              count: matchingDocs.length
+            } as SubCategoryGroup);
+            
+            // Add each matching document
+            matchingDocs.forEach(doc => {
+              result.push({
+                ...doc,
+                isGroup: false
+              } as DocumentItem);
+            });
+          }
+        });
+        
+        return result;
       }
       
       return filtered;
@@ -816,6 +875,23 @@ const styles = StyleSheet.create({
       android: { elevation: 3 },
       web: { boxShadow: '0 2px 6px rgba(0,0,0,0.1)' },
     }),
+  },
+  searchHeaderItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#f8f9fa',
+    borderRadius: 8,
+    padding: 12,
+    marginBottom: 8,
+    marginTop: 8,
+    borderLeftWidth: 3,
+    borderLeftColor: MedicalTheme.primary,
+  },
+  searchHeaderTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: MedicalTheme.primary,
+    marginBottom: 4,
   },
   documentIcon: {
     width: 40,
