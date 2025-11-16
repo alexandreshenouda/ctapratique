@@ -1,0 +1,38 @@
+name: Deploy Secure Build to GitHub Pages
+
+on:
+  # Déclenchement manuel uniquement
+  workflow_dispatch:
+  # Ou lors d'un push sur une branche spécifique
+  push:
+    branches: [ secure-deploy ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    # Permissions nécessaires pour déployer sur GitHub Pages
+    permissions:
+      contents: write
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+        
+    - name: Install dependencies
+      run: npm install
+      
+    - name: Build Secure
+      run: npm run build:web:secure
+      
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./dist
+        commit_message: 'Deploy secure build'
+

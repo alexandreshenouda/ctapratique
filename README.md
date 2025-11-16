@@ -68,6 +68,31 @@ npx gh-pages -d dist
 
 Consultez `DEPLOY_GITHUB_PAGES.md` pour le guide complet avec GitHub Actions.
 
+### 🔐 Build Sécurisé avec Mot de Passe
+
+Pour protéger votre application avec un mot de passe et chiffrer le contenu :
+
+```bash
+# Construire l'application avec chiffrement
+npm run build:web:secure
+
+# Alternative : Build sécurisé et création d'une archive
+npm run deploy:prepare:secure
+```
+
+**Mot de passe par défaut** : `CTP2026`
+
+Le build sécurisé :
+- ✅ Chiffre tous les fichiers JS et CSS avec AES-256
+- ✅ Crée une page de login professionnelle
+- ✅ Protège contre l'accès non autorisé
+- ✅ Ne stocke jamais le mot de passe en clair
+- ✅ Compatible avec GitHub Pages et tous les hébergeurs statiques
+
+⚠️ **Note** : Il s'agit d'une protection côté client efficace contre les utilisateurs occasionnels, mais pas contre des attaques déterminées. Pour une sécurité maximale, utilisez une authentification côté serveur.
+
+📖 Consultez `SECURE_BUILD.md` pour le guide complet.
+
 ### Création du Build de Production
 
 Pour créer un build de production pour le déploiement web :
