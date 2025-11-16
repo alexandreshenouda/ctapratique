@@ -8,7 +8,8 @@ Une application React Native cross-platform construite avec Expo qui fonctionne 
 - **Interface Professionnelle** : Inspirée de la structure de ctapratique.com
 - **Écran d'Accueil** : Section hero avec statistiques et présentation professionnelle
 - **Formation** : Programmes de formation détaillés et ateliers
-- **Contact** : Formulaire de contact complet et informations
+- **Contact** : Formulaire de contact fonctionnel avec FormSubmit (gratuit, illimité)
+- **Documents** : Recherche avancée dans les documents avec affichage groupé
 - **Interface Moderne** : Design épuré et professionnel avec styles spécifiques à chaque plateforme
 
 ## Démarrage
@@ -32,7 +33,12 @@ cd stephane-app
 npm install
 ```
 
-3. Démarrer le serveur de développement :
+3. **Configurer le formulaire de contact** (2 minutes ⚡) :
+   - Ouvrez `src/config/contact.config.ts`
+   - Remplacez l'email par le vôtre
+   - Consultez `CONTACT_SETUP.md` pour les détails
+
+4. Démarrer le serveur de développement :
 ```bash
 npm start
 ```

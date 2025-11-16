@@ -10,9 +10,11 @@ import {
   Alert,
   Linking,
   Image,
+  ActivityIndicator,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
+import { CONTACT_CONFIG } from '../config/contact.config';
 import MedicalTheme from '../theme/colors';
 
 interface ContactInfoProps {
@@ -45,32 +47,84 @@ const ContactScreen: React.FC = () => {
     objet: '',
     message: '',
   });
+  const [isSending, setIsSending] = useState(false);
 
   const handleInputChange = (field: string, value: string) => {
     setForm(prev => ({ ...prev, [field]: value }));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    // Validation
     if (!form.nom || !form.email || !form.message) {
       Alert.alert('Erreur', 'Veuillez remplir les champs obligatoires (Nom, Email, Message)');
       return;
     }
 
-    Alert.alert(
-      'Message envoyé',
-      'Merci pour votre message ! Nous vous contacterons bientôt.',
-      [{ text: 'OK', onPress: () => {
-        setForm({
-          nom: '',
-          email: '',
-          telephone: '',
-          adresse: '',
-          ville: '',
-          objet: '',
-          message: '',
-        });
-      }}]
-    );
+    // Validation basique de l'email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(form.email)) {
+      Alert.alert('Erreur', 'Veuillez entrer une adresse email valide');
+      return;
+    }
+
+    setIsSending(true);
+
+    try {
+      // Préparer les données en JSON pour l'endpoint AJAX
+      const jsonData = {
+        name: form.nom,
+        email: form.email,
+        phone: form.telephone || 'Non renseigné',
+        address: form.adresse || 'Non renseignée',
+        city: form.ville || 'Non renseignée',
+        subject: form.objet || 'Demande de renseignement',
+        message: form.message,
+        _subject: CONTACT_CONFIG.options.subject,
+        _captcha: 'false',
+        _template: 'table',
+      };
+
+      // Envoyer via FormSubmit AJAX endpoint (supporte CORS)
+      const response = await fetch(
+        `https://formsubmit.co/ajax/${CONTACT_CONFIG.recipientEmail}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+          body: JSON.stringify(jsonData),
+        }
+      );
+
+      if (response.ok) {
+        Alert.alert(
+          'Message envoyé',
+          'Merci pour votre message ! Nous vous contacterons bientôt.',
+          [{ text: 'OK', onPress: () => {
+            setForm({
+              nom: '',
+              email: '',
+              telephone: '',
+              adresse: '',
+              ville: '',
+              objet: '',
+              message: '',
+            });
+          }}]
+        );
+      } else {
+        throw new Error('Erreur lors de l\'envoi');
+      }
+    } catch (error) {
+      console.error('Erreur lors de l\'envoi:', error);
+      Alert.alert(
+        'Erreur',
+        'Une erreur est survenue lors de l\'envoi du message. Veuillez réessayer ou nous contacter directement par email.'
+      );
+    } finally {
+      setIsSending(false);
+    }
   };
 
   const handleEmailPress = async () => {
@@ -251,9 +305,22 @@ const ContactScreen: React.FC = () => {
               />
             </View>
 
-            <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
-              <Ionicons name="send" size={20} color="white" />
-              <Text style={styles.submitButtonText}>Envoyer</Text>
+            <TouchableOpacity 
+              style={[styles.submitButton, isSending && styles.submitButtonDisabled]} 
+              onPress={handleSubmit}
+              disabled={isSending}
+            >
+              {isSending ? (
+                <>
+                  <ActivityIndicator color="white" size="small" />
+                  <Text style={styles.submitButtonText}>Envoi en cours...</Text>
+                </>
+              ) : (
+                <>
+                  <Ionicons name="send" size={20} color="white" />
+                  <Text style={styles.submitButtonText}>Envoyer</Text>
+                </>
+              )}
             </TouchableOpacity>
           </View>
         </View>
@@ -407,13 +474,17 @@ const styles = StyleSheet.create({
     textAlignVertical: 'top',
   },
   submitButton: {
-    backgroundColor: 'MedicalTheme.primary',
+    backgroundColor: MedicalTheme.primary,
     borderRadius: 8,
     padding: 16,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     gap: 8,
+  },
+  submitButtonDisabled: {
+    backgroundColor: '#999',
+    opacity: 0.7,
   },
   submitButtonText: {
     color: 'white',
