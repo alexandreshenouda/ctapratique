@@ -2,8 +2,8 @@
 // Ce fichier DOIT rester à la racine du site pour fonctionner.
 // Il gère les notifications push en arrière-plan (quand l'app n'est pas au premier plan).
 
-importScripts('https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js');
-importScripts('https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging-compat.js');
+importScripts('https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js');
+importScripts('https://www.gstatic.com/firebasejs/9.22.0/firebase-messaging-compat.js');
 
 // La config Firebase est injectée automatiquement par le script de build.
 // Fallback : valeurs par défaut (remplacées au build).
