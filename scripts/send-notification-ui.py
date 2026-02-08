@@ -132,7 +132,7 @@ class NotificationApp:
         self.root.configure(bg=BG)
         self.root.resizable(False, False)
 
-        w, h = 500, 520
+        w, h = 500, 620
         x = (self.root.winfo_screenwidth() - w) // 2
         y = (self.root.winfo_screenheight() - h) // 2
         self.root.geometry(f'{w}x{h}+{x}+{y}')
@@ -191,7 +191,7 @@ class NotificationApp:
         tk.Label(main, text="Journal", font=('SF Pro Text', 12, 'bold'),
                  bg=BG, fg=TEXT).pack(anchor='w', pady=(16, 4))
 
-        self.log = scrolledtext.ScrolledText(main, font=('Menlo', 10), height=8,
+        self.log = scrolledtext.ScrolledText(main, font=('Menlo', 10), height=14,
                                               relief='solid', bd=1, bg='#FAFAFA',
                                               highlightthickness=0, state='disabled')
         self.log.pack(fill='both', expand=True)

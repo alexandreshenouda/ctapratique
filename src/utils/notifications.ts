@@ -44,7 +44,7 @@ async function saveTokenToFirestore(token: string): Promise<void> {
     // Enregistrer le token dans Firestore via l'API REST (pas besoin du SDK Firestore)
     const url = `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/fcm_tokens/${tokenHash}?key=${apiKey}`;
 
-    await fetch(url, {
+    const resp = await fetch(url, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -56,7 +56,11 @@ async function saveTokenToFirestore(token: string): Promise<void> {
       }),
     });
 
-    console.log('[Notifications] Token enregistré dans Firestore.');
+    if (resp.ok) {
+      console.log('[Notifications] ✅ Token enregistré dans Firestore.');
+    } else {
+      console.warn(`[Notifications] ⚠️ Firestore ${resp.status} — vérifiez les règles de sécurité Firestore.`);
+    }
   } catch (err) {
     // Non bloquant : les notifications fonctionnent même si l'enregistrement échoue
     console.warn('[Notifications] Impossible d\'enregistrer le token dans Firestore:', err);
