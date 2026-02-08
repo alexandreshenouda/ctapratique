@@ -17,4 +17,4 @@ export const FIREBASE_CONFIG = {
 
 // Clé VAPID pour les notifications web push
 // Vous la trouverez dans Firebase Console > Project Settings > Cloud Messaging > Web Push certificates
-export const VAPID_KEY = 'BCPRglAyh8EvGc1v8UYtJRq1_xcict2z5SmEHDC4pGBQy7DVQsMV-S1FGSaeI6FiGP3igbHTHIZxop9viQ5lywc';
+export const VAPID_KEY = 'BNT7OgimtrBXt5_GMxiX3dmA6S01uU8O7M3n2yHXzpSby4bXdAQthdwLADzajIXoqdb3j2p_qxwAs3yRee-9MmU';
