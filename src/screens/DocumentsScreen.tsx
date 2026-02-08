@@ -23,7 +23,7 @@ import MedicalTheme from '../theme/colors';
 // Laissez le tableau vide [] pour masquer la section.
 // ============================================================
 const ANNOUNCEMENTS: string[] = [
-  'Bienvenue ! De nouveaux documents seront ajoutés régulièrement.',
+  'Bienvenue ! Connectez-vous régulièrement, de nouveaux documents seront ajoutés.',
   // Ajoutez d'autres lignes ici, par exemple :
   // 'Mise à jour des fiches pratiques prévue en mars 2026.',
 ];
