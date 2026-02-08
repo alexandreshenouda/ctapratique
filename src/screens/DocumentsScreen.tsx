@@ -472,8 +472,8 @@ const DocumentsScreen: React.FC = () => {
           </View>
         ) : (
           <>
-            <Text style={styles.headerTitle}>Documents Professionnels</Text>
-            <Text style={styles.headerSubtitle}>Hygiène & Asepsie Dentaire</Text>
+            <Text style={styles.headerTitle}>Référentiels, guides et fiches pratiques</Text>
+            <Text style={styles.headerSubtitle}>Hygiène, Stérilisation et Asepsie Dentaire</Text>
           </>
         )}
       </View>
