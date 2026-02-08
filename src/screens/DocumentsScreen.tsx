@@ -17,7 +17,17 @@ import { loadDocuments, loadDocumentsGrouped, loadDocumentsBySubCategory, loadCa
 import { isLocalFile, openLocalFile } from '../utils/localAssets';
 import MedicalTheme from '../theme/colors';
 
-// Using DocumentData from csvLoader instead of local interface
+// ============================================================
+// SECTION INFORMATIONS — Modifiez ce tableau pour ajouter ou
+// retirer des annonces affichées en haut de la page Documents.
+// Laissez le tableau vide [] pour masquer la section.
+// ============================================================
+const ANNOUNCEMENTS: string[] = [
+  'Bienvenue ! De nouveaux documents seront ajoutés régulièrement.',
+  // Ajoutez d'autres lignes ici, par exemple :
+  // 'Mise à jour des fiches pratiques prévue en mars 2026.',
+];
+// ============================================================
 
 interface CategoryProps {
   title: string;
@@ -472,11 +482,23 @@ const DocumentsScreen: React.FC = () => {
           </View>
         ) : (
           <>
-            <Text style={styles.headerTitle}>Référentiels, guides et fiches pratiques</Text>
+            <Text style={styles.headerTitle}>Référentiels, Guides et Fiches pratiques</Text>
             <Text style={styles.headerSubtitle}>Hygiène, Stérilisation et Asepsie Dentaire</Text>
           </>
         )}
       </View>
+
+      {/* Announcements */}
+      {ANNOUNCEMENTS.length > 0 && (
+        <View style={styles.announcementsContainer}>
+          {ANNOUNCEMENTS.map((text, index) => (
+            <View key={index} style={styles.announcementRow}>
+              <Ionicons name="information-circle" size={18} color={MedicalTheme.primary} style={styles.announcementIcon} />
+              <Text style={styles.announcementText}>{text}</Text>
+            </View>
+          ))}
+        </View>
+      )}
 
       {/* Search Bar */}
       <View style={styles.searchContainer}>
@@ -732,6 +754,28 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     opacity: 0.9,
     marginTop: 4,
+  },
+  announcementsContainer: {
+    backgroundColor: '#EAF4FE',
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: '#cce0f5',
+  },
+  announcementRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    marginVertical: 3,
+  },
+  announcementIcon: {
+    marginRight: 8,
+    marginTop: 1,
+  },
+  announcementText: {
+    fontSize: 13,
+    color: '#333',
+    lineHeight: 20,
+    flex: 1,
   },
   searchContainer: {
     padding: 15,

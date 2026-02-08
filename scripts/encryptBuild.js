@@ -45,6 +45,58 @@ function processDirectory(dirPath) {
     });
 }
 
+// Copier le logo dans dist/assets et créer le manifest
+function createManifestAndIcons() {
+    const logoSrc = path.join(__dirname, '../assets/logo.jpg');
+    const assetsDir = path.join(DIST_PATH, 'assets');
+
+    // S'assurer que le dossier assets existe
+    if (!fs.existsSync(assetsDir)) {
+        fs.mkdirSync(assetsDir, { recursive: true });
+    }
+
+    // Copier logo.jpg dans dist/assets/ (chemin stable sans hash)
+    const logoDest = path.join(assetsDir, 'logo.jpg');
+    if (fs.existsSync(logoSrc)) {
+        fs.copyFileSync(logoSrc, logoDest);
+        console.log('  ✓ Logo copié: assets/logo.jpg');
+    } else {
+        console.warn('  ⚠ Logo source non trouvé:', logoSrc);
+    }
+
+    // Créer le manifest.json
+    const manifest = {
+        name: 'CTA Pratique',
+        short_name: 'CTAPratique',
+        description: 'Formation en hygiène et asepsie hospitalière et dentaire',
+        start_url: '.',
+        display: 'standalone',
+        background_color: '#ffffff',
+        theme_color: '#0066CC',
+        icons: [
+            {
+                src: 'assets/logo.jpg',
+                sizes: '192x192',
+                type: 'image/jpeg',
+                purpose: 'any'
+            },
+            {
+                src: 'assets/logo.jpg',
+                sizes: '512x512',
+                type: 'image/jpeg',
+                purpose: 'any'
+            }
+        ]
+    };
+
+    fs.writeFileSync(
+        path.join(DIST_PATH, 'manifest.json'),
+        JSON.stringify(manifest, null, 2),
+        'utf8'
+    );
+    console.log('  ✓ Manifest créé: manifest.json');
+}
+
 // Créer la page de login
 function createLoginPage() {
     const loginHTML = `<!DOCTYPE html>
@@ -52,7 +104,14 @@ function createLoginPage() {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="CTAPratique">
+    <meta name="theme-color" content="#0066CC">
     <title>Accès sécurisé - CTA Pratique</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="assets/logo.jpg">
+    <link rel="icon" type="image/jpeg" href="assets/logo.jpg">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
     <style>
         * {
@@ -362,6 +421,16 @@ function createAppPage() {
         })();
     </script>`;
         
+        // Injecter les balises PWA dans le <head> de app.html
+        const pwaHeadTags = `
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="assets/logo.jpg">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="CTAPratique">
+    <meta name="theme-color" content="#0066CC">`;
+        originalContent = originalContent.replace('</head>', pwaHeadTags + '\n  </head>');
+        
         // Remplacer les références aux scripts JS par notre script de déchiffrement
         // Retirer tous les scripts existants qui pointent vers des fichiers .js
         originalContent = originalContent.replace(
@@ -397,6 +466,9 @@ try {
     // Chiffrer les fichiers
     console.log('Chiffrement des fichiers JS et CSS...');
     processDirectory(DIST_PATH);
+    
+    console.log('\nCréation du manifest et copie des icônes...');
+    createManifestAndIcons();
     
     console.log('\nCréation des pages...');
     createAppPage();

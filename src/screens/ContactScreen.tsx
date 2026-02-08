@@ -255,6 +255,35 @@ const ContactScreen: React.FC = () => {
       </View>
 
       <ScrollView contentContainerStyle={styles.scrollContent}>
+        {/* Profile Section */}
+        <View style={styles.section}>
+          <View style={styles.profileCard}>
+            <View style={styles.profileIconContainer}>
+              <Ionicons name="person-circle" size={64} color={MedicalTheme.primary} />
+            </View>
+            <Text style={styles.profileName}>Stéphane Sananès</Text>
+            <View style={styles.profileDivider} />
+            <View style={styles.profileDetail}>
+              <Ionicons name="medkit" size={18} color={MedicalTheme.primary} style={styles.profileDetailIcon} />
+              <Text style={styles.profileDetailText}>
+                Formateur en hygiène et asepsie hospitalière et dentaire
+              </Text>
+            </View>
+            <View style={styles.profileDetail}>
+              <Ionicons name="search" size={18} color={MedicalTheme.primary} style={styles.profileDetailIcon} />
+              <Text style={styles.profileDetailText}>
+                Consultant audit en cabinet dentaire et ophtalmologique
+              </Text>
+            </View>
+            <View style={styles.profileDetail}>
+              <Ionicons name="school" size={18} color={MedicalTheme.primary} style={styles.profileDetailIcon} />
+              <Text style={styles.profileDetailText}>
+                Titulaire de deux diplômes universitaires (DU en stérilisation hospitalière, DIU infections nosocomiales et qualité de soins)
+              </Text>
+            </View>
+          </View>
+        </View>
+
         {/* Contact Methods */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>INFORMATIONS DE CONTACT</Text>
@@ -447,6 +476,57 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#333',
     marginBottom: 15,
+  },
+  profileCard: {
+    backgroundColor: 'white',
+    borderRadius: 12,
+    padding: 24,
+    alignItems: 'center',
+    ...Platform.select({
+      ios: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+      },
+      android: { elevation: 3 },
+      web: { boxShadow: '0 2px 6px rgba(0,0,0,0.1)' },
+    }),
+  },
+  profileIconContainer: {
+    marginBottom: 12,
+  },
+  profileName: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: MedicalTheme.primary,
+    textAlign: 'center',
+    marginBottom: 12,
+  },
+  profileDivider: {
+    width: 60,
+    height: 3,
+    backgroundColor: MedicalTheme.primary,
+    borderRadius: 2,
+    marginBottom: 16,
+    opacity: 0.6,
+  },
+  profileDetail: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    marginBottom: 12,
+    paddingHorizontal: 8,
+    width: '100%',
+  },
+  profileDetailIcon: {
+    marginRight: 10,
+    marginTop: 2,
+  },
+  profileDetailText: {
+    fontSize: 15,
+    color: '#444',
+    lineHeight: 22,
+    flex: 1,
   },
   contactInfoItem: {
     flexDirection: 'row',
