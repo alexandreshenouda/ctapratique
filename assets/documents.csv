@@ -51,3 +51,7 @@ id,title,category,subCategory,type,year,description,url,iconType,color
 50,PROTOCOLE OPHTALMIQUE,PROTOCOLES,PROTOCOLE DIVERSES,PDF,,Rinçage Ophtalmique,https://www.ctapratique.fr/wp-content/uploads/go-x/u/aee40e6b-f7f8-4a73-a0ca-c152b208b7bd/Station-de-rincage-ophtalmique.pdf,download,#AF52DE
 51,PROTOCOLE RECAPUCHONNAGE,PROTOCOLES,PROTOCOLE DIVERSES,PDF,,Dispositif de recapuchonnage d'une seule main,https://www.ctapratique.fr/wp-content/uploads/go-x/u/6dacefae-d1e3-4465-9b04-dddc0d2f8e0a/019_bleuP04_disp_reca_C190420-v1.0.pdf,download,#AF52DE
 52,FICHES PRÉCAUTIONS STANDARD,PROTOCOLES,PROTOCOLES SALLE DE SOINS,PDF,2017,7 Fiches Précautions Standard,https://www.ctapratique.fr/wp-content/uploads/go-x/u/dd8b732e-5763-4709-9c7e-2b97452abe4a/Protocoles-Standard.pdf,download,#AF52DE
+53,MELAG,CONSOMMABLES,,Web,,Seal-Check,https://www.melag.com/en/melacontrol-seal-check/me01079,external,#6AC4DC
+54,CQO,CONSOMMABLES,,Web,,Test HÉLIX PRION,https://www.bycqo.com/materiel/consommables/test-helix-prion,external,#6AC4DC
+55,Hu-FRIEDY,CONSOMMABLES,,Web,,Wash-Checks US et Thermo,https://www.hufriedygroup.com/en/cleaningmonitors,external,#6AC4DC
+56,GAMASONIC,CONSOMMABLES,,Web,,SonoCheck,https://gamasonic.eu/gammes-de-materiels/accessoires/kit-equerres-support-smk6-2/,external,#6AC4DC
