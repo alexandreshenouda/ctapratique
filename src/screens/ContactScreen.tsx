@@ -282,7 +282,7 @@ const ContactScreen: React.FC = () => {
             <View style={styles.profileDetail}>
               <Ionicons name="school" size={18} color={MedicalTheme.primary} style={styles.profileDetailIcon} />
               <Text style={styles.profileDetailText}>
-                Titulaire de deux diplômes universitaires                                                                                            (DU en Stérilisation Hospitalière, DIU Infections Nosocomiales et Qualité de Soins)
+                Titulaire de deux Diplômes Universitaires                                                                                            (DU en Stérilisation Hospitalière, DIU Infections Nosocomiales et Qualité de Soins)
               </Text>
             </View>
           </View>
