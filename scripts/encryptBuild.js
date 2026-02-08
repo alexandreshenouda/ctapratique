@@ -139,7 +139,7 @@ function createLoginPage() {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="CTAPratique">
     <meta name="theme-color" content="#0066CC">
@@ -460,7 +460,7 @@ function createAppPage() {
         const pwaHeadTags = `
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="assets/logo.jpg">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="CTAPratique">
     <meta name="theme-color" content="#0066CC">`;
