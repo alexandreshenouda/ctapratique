@@ -1,7 +1,7 @@
 id,title,category,subCategory,type,year,description,url,iconType,color
 1,Présentation,FORMATION,FRANCE,PDF,,PowerPoint formation France,https://www.ctapratique.fr/wp-content/uploads/go-x/u/171bb183-923e-4958-a520-2047a28e31d4/Presentation-compressed.pdf,download,#BF5AF2
 2,URPS PACA,FORMATION,FRANCE,Web,,Union Régionale des Professionnels de Santé PACA,https://urps-paca-chd.fr/agenda-urps-paca/,external,#FF6B6B
-3,URPS NORM.,FORMATION,FRANCE,Web,,Union Régionale des Professionnels de Santé Normandie,https://www.billetweb.fr/hygiene-et-asepsie-au-cabinet-dentaire,external,#FF6B6B
+3,URPS NORMANDIE,FORMATION,FRANCE,Web,,Union Régionale des Professionnels de Santé Normandie,https://www.billetweb.fr/hygiene-et-asepsie-au-cabinet-dentaire,external,#FF6B6B
 4,URPS OCEAN INDIEN,FORMATION,FRANCE,Web,,Union Régionale des Professionnels de Santé Océan Indien,https://urps-chirurgien-dentiste.re/agenda/,external,#FF6B6B
 5,Référentiels BELGE,FORMATION,BELGIQUE,PDF,,Conseil Supérieur de la Santé Belgique - Document 1,https://archives.dentiste.be/FileFromDatabase.aspx?id=257,download,#FFCC02
 6,Référentiels BELGE,FORMATION,BELGIQUE,PDF,,Conseil Supérieur de la Santé Belgique - Document 2,https://www.health.belgium.be/sites/default/files/uploads/fields/fpshealth_theme_file/19069789/Recommandations%20relatives%20%C3%A0%20la%20ma%C3%AEtrise%20des%20infections%20lors%20des%20soins%20r%C3%A9alis%C3%A9s%20en%20m%C3%A9decine%20dentaire.%20%28mai%202011%29%20%28CSS%208363%29.pdf,download,#FFCC02
@@ -37,3 +37,4 @@ id,title,category,subCategory,type,year,description,url,iconType,color
 36,Eco-responsabilité au cabinet dentaire,ECO-RESPONSABLE,,PDF,,Pratiques éco-responsables au cabinet dentaire,https://1beccaab-b9c5-4184-8c2f-4422faafed9e.usrfiles.com/ugd/1becca_a224c2e082754901a7f3b5d9b1dd21b5.pdf,download,#32D74B
 37,POURET MEDICAL,CONSOMMABLES,,Web,,Documentation partenaire Pouret Médical,https://www.pouretmedical.com/product/tuyau-autoclavable/,external,#6AC4DC
 37,CAHIER MAINTENANCE,CONSOMMABLES,,Web,,Cahier de maintenance des équipements,https://boutique.berger-levrault.fr/documents-et-accessoires/sante-social/suivi-medical/bloc-operatoire/bloc-operatoire/cahier-de-maintenance-et-de-controle-qualite-demandes-d-intervention-et-interventions-realisees.html,external,#00C7BE
+38,URPS GRAND-EST,FORMATION,FRANCE,Web,,Union Régionale des Professionnels du Grand-Est,PROCHAINEMENT,external,#FF6B6B
