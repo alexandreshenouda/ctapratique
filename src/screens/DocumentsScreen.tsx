@@ -23,7 +23,7 @@ import MedicalTheme from '../theme/colors';
 // Laissez le tableau vide [] pour masquer la section.
 // ============================================================
 const ANNOUNCEMENTS: string[] = [
-  'Bienvenue ! Connectez-vous les mises à jour sont régulières. Le NOUVEAU GUIDE ADF 2026 sera disponible dans les prochains jours sur le site de l'ADF',
+  "Bienvenue ! Connectez-vous les mises à jour sont régulières. Le NOUVEAU GUIDE ADF 2026 sera disponible dans les prochains jours sur le site de l'ADF",
   // Ajoutez d'autres lignes ici, par exemple :
   // 'Mise à jour des fiches pratiques prévue en mars 2026.',
 ];
