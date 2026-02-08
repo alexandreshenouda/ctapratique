@@ -1,5 +1,5 @@
 id,title,category,subCategory,type,year,description,url,iconType,color
-1,Présentation,POWER-POINT,FRANCE,PDF,,PowerPoint formation France,https://www.ctapratique.fr/wp-content/uploads/go-x/u/171bb183-923e-4958-a520-2047a28e31d4/Presentation-compressed.pdf,download,#BF5AF2
+1,Présentation,SYNTHÈSE,PRÉSENTATION FORMATION,PDF,,PowerPoint formation France,https://www.ctapratique.fr/wp-content/uploads/go-x/u/171bb183-923e-4958-a520-2047a28e31d4/Presentation-compressed.pdf,download,#BF5AF2
 2,URPS PACA,RÉSERVATION URPS,FRANCE,Web,,Union Régionale des Professionnels de Santé PACA,https://urps-paca-chd.fr/agenda-urps-paca/,external,#FF6B6B
 3,URPS NORMANDIE,RÉSERVATION URPS,FRANCE,Web,,Union Régionale des Professionnels de Santé Normandie,https://www.billetweb.fr/hygiene-et-asepsie-au-cabinet-dentaire,external,#FF6B6B
 4,URPS OCEAN INDIEN,RÉSERVATION URPS,FRANCE,Web,,Union Régionale des Professionnels de Santé Océan Indien,https://urps-chirurgien-dentiste.re/agenda/,external,#FF6B6B
@@ -29,13 +29,21 @@ id,title,category,subCategory,type,year,description,url,iconType,color
 28,COVID 2021,GUIDES OFFICIELS,GUIDES COVID,PDF,2021,Mise à jour des protocoles COVID-19,https://www.has-sante.fr/upload/docs/application/pdf/2021-01/p_2021_0015_rr_covid19_soins_bucco_dentaires.pdf,download,#FF9500
 29,Mon article dans le CD Magazine,ARTICLES,,Web,,Article Chirurgiens-Dentistes de France Magazine,https://sygaa.lescdf.fr/user/login?destination=/cdfmag/viewer%3Ffile%3D/cdfmag/file/access/T0JDZFd3My9aVmtzUEsxOVpoVWxlUT09#page=1,external,#5856D6
 30,Mes articles Scientifiques et Techniques,ARTICLES,,Web,,Article Chirurgiens-Dentistes de France Blog,https://www.ctapratique.fr/articles/,external,#5856D6
-31,INJONCTIONS ARS,A.R.S,,PDF,,Injonctions Agence Régionale de Santé,https://www.ctapratique.fr/wp-content/uploads/go-x/u/39db30d4-cff4-4745-9cc3-572701dcc38d/Exemples-injonctions-ARS.pdf,download,#FF3B30
-32,FICHES TECHNIQUES ARS/PACA,A.R.S,,PDF,,Formulaire ARS PACA,https://www.paca.ars.sante.fr/system/files/2024-09/Fiches%20Dentistes%20%284%29.pdf,download,#FF3B30
-33,FICHES TECHNIQUES ARS/ARA,A.R.S,,PDF,,Formulaire ARS Auvergne-Rhône-Alpes,https://1beccaab-b9c5-4184-8c2f-4422faafed9e.usrfiles.com/ugd/1becca_f0154ae7a93a458ca531c00c575f2f05.pdf,download,#FF3B30
+31,INJONCTIONS ARS,A.R.S DGCCRF,,PDF,,Injonctions Agence Régionale de Santé,https://www.ctapratique.fr/wp-content/uploads/go-x/u/39db30d4-cff4-4745-9cc3-572701dcc38d/Exemples-injonctions-ARS.pdf,download,#FF3B30
+32,FICHES TECHNIQUES ARS/PACA,A.R.S DGCCRF,,PDF,,Formulaire ARS PACA,https://www.paca.ars.sante.fr/system/files/2024-09/Fiches%20Dentistes%20%284%29.pdf,download,#FF3B30
+33,FICHES TECHNIQUES ARS/ARA,A.R.S DGCCRF,,PDF,,Formulaire ARS Auvergne-Rhône-Alpes,https://1beccaab-b9c5-4184-8c2f-4422faafed9e.usrfiles.com/ugd/1becca_f0154ae7a93a458ca531c00c575f2f05.pdf,download,#FF3B30
 34,VIDEOS,VIDEOS,,Web,,Youtube C ta Pratique,https://www.youtube.com/channel/UCtXx67gUNzknqL-G_Tk_4vQ,external,#BF5AF2
 35,VIDEOS URPS,VIDEOS,,Web,,Video URPS,https://www.ctapratique.fr/videos/,external,#BF5AF2
 36,Eco-responsabilité au cabinet dentaire,ECO-RESPONSABLE,,PDF,,Pratiques éco-responsables au cabinet dentaire,https://1beccaab-b9c5-4184-8c2f-4422faafed9e.usrfiles.com/ugd/1becca_a224c2e082754901a7f3b5d9b1dd21b5.pdf,download,#32D74B
 37,POURET MEDICAL,CONSOMMABLES,,Web,,Protection instruments POURET médical,https://www.pouretmedical.com/product/tuyau-autoclavable/,external,#6AC4DC
-37,CAHIER MAINTENANCE,CONSOMMABLES,,Web,,Cahier de maintenance des équipements,https://boutique.berger-levrault.fr/documents-et-accessoires/sante-social/suivi-medical/bloc-operatoire/bloc-operatoire/cahier-de-maintenance-et-de-controle-qualite-demandes-d-intervention-et-interventions-realisees.html,external,#00C7BE
-38,URPS GRAND-EST,RÉSERVATION URPS,FRANCE,Web,,Union Régionale des Professionnels du Grand-Est,https://www.urps-cd-grandest.fr/formations/,external,#FF6B6B
-39,SURGMED,CONSOMMABLES,,Web,,Protecton instruments SURGMED,https://www.surgmed.com/fr/produit/protecteurs-dinstruments/,external,#6AC4DC
+38,CAHIER MAINTENANCE,CONSOMMABLES,,Web,,Cahier de maintenance des équipements,https://boutique.berger-levrault.fr/documents-et-accessoires/sante-social/suivi-medical/bloc-operatoire/bloc-operatoire/cahier-de-maintenance-et-de-controle-qualite-demandes-d-intervention-et-interventions-realisees.html,external,#00C7BE
+39,URPS GRAND-EST,RÉSERVATION URPS,FRANCE,Web,,Union Régionale des Professionnels du Grand-Est,https://www.urps-cd-grandest.fr/formations/,external,#FF6B6B
+40,SURGMED,CONSOMMABLES,,Web,,Protecton instruments SURGMED,https://www.surgmed.com/fr/produit/protecteurs-dinstruments/,external,#6AC4DC
+41,Présentation,SYNTHÈSE,RADIOPROTECTION,PDF,,PowerPoint formation France,https://1beccaab-b9c5-4184-8c2f-4422faafed9e.usrfiles.com/ugd/1becca_847ad3223e244361b150dbcb3d8934f2.pdf,download,#BF5AF2
+42,Présentation,SYNTHÈSE,PROBLÉMATIQUES D.M.,PDF,,PowerPoint formation France,https://1beccaab-b9c5-4184-8c2f-4422faafed9e.usrfiles.com/ugd/1becca_8f00092b9e014c53b4912264e73b9beb.pdf,download,#BF5AF2
+43,CONTRÔLES DGCCRF,A.R.S DGCCRF,,PDF,,Direction générale de la Concurrence de la Consommation et de la Répression des fraudes,https://www.linkedin.com/posts/ordre-national-des-chirurgiens-dentistes_information-des-patients-attention-la-dgccrf-activity-7285190260441927681-_kzH/?utm_source=share&utm_medium=member_ios,download,#FF3B30
+44,COMIDENT,DISPOSITIFS MEDICAUX,RE-TRAITEMENT DES P.I.D.,PDF,,L'association professionnelle représentant les TPE PME et ETI ,https://www.cd2-conseils.com/wp-content/uploads/2013/02/ste_comident_guide_de_traitement_des_pid_0.pdf,download,#FF2D92
+45,Eco-responsabilité au cabinet dentaire,ECO-RESPONSABLE,,PDF,,Guide pour la Responsabilité Environnementale et Stérilisation,https://view.genially.com/6895be45827a164b16e743fe,download,#32D74B
+46,FICHE DE TRAÇABILITÉ,PROTOCOLES,FICHES ENTRETIEN SALLE DE SOINS,PDF,,Traçabilité de l'entretien des surfaces des purges de l'aspiration et de l'unit en salle de soins,https://www.ctapratique.fr/wp-content/uploads/go-x/u/5b1f769b-1a52-400e-aed7-31e1c16cbc5a/Tracabilite-entretien-surfaces-et-unit.pdf,download,#00C7BE
+46,FICHE DE TRAÇABILITÉ,PROTOCOLES,FICHES TRAÇABILITÉ EN STÉRILISATION,PDF,,Traçabilité des cycles et des tests de routine en Stérilisation,https://www.ctapratique.fr/wp-content/uploads/go-x/u/23fc0d0a-86fa-42ee-97cb-3dc2a0e797dd/Fiche-de-sterilisation.pdf,download,#00C7BE
+47,PROTOCOLES DIVERSES,PROTOCOLES,PROTOCOLES DIVERSES,PDF,,Conditionnement des Dispositifs médicaux,https://www.ctapratique.fr/wp-content/uploads/go-x/u/23fc0d0a-86fa-42ee-97cb-3dc2a0e797dd/Fiche-de-sterilisation.pdf,download,#00C7BE
