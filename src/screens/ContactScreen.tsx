@@ -259,7 +259,11 @@ const ContactScreen: React.FC = () => {
         <View style={styles.section}>
           <View style={styles.profileCard}>
             <View style={styles.profileIconContainer}>
-              <Ionicons name="person-circle" size={64} color={MedicalTheme.primary} />
+              <Image
+                source={require('../../assets/photo_contact.jpeg')}
+                style={styles.profilePhoto}
+                resizeMode="cover"
+              />
             </View>
             <Text style={styles.profileName}>Stéphane Sananès</Text>
             <View style={styles.profileDivider} />
@@ -495,6 +499,13 @@ const styles = StyleSheet.create({
   },
   profileIconContainer: {
     marginBottom: 12,
+  },
+  profilePhoto: {
+    width: 110,
+    height: 110,
+    borderRadius: 55,
+    borderWidth: 3,
+    borderColor: MedicalTheme.primary,
   },
   profileName: {
     fontSize: 22,
