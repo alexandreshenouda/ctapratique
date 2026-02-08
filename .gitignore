@@ -68,5 +68,6 @@ stephane-app-web.zip
 #Generated files
 stephane-app-web/
 
-# Firebase service account key (secret!)
+# Firebase service account key & tokens (secret!)
 scripts/service-account.json
+scripts/tokens.txt
