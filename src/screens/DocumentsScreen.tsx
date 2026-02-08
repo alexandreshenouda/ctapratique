@@ -506,7 +506,7 @@ const DocumentsScreen: React.FC = () => {
           <Ionicons name="search" size={20} color="#666" />
           <TextInput
             style={styles.searchInput}
-            placeholder="Rechercher un document..."
+            placeholder="Cliquez sur TOUS avant la recherche..."
             value={searchQuery}
             onChangeText={setSearchQuery}
             placeholderTextColor="#999"
