@@ -1,10 +1,10 @@
 id,title,category,subCategory,type,year,description,url,iconType,color
 1,Présentation,POWER-POINT,FRANCE,PDF,,PowerPoint formation France,https://www.ctapratique.fr/wp-content/uploads/go-x/u/171bb183-923e-4958-a520-2047a28e31d4/Presentation-compressed.pdf,download,#BF5AF2
-2,URPS PACA,FORMATION RÉSERVATION,FRANCE,Web,,Union Régionale des Professionnels de Santé PACA,https://urps-paca-chd.fr/agenda-urps-paca/,external,#FF6B6B
-3,URPS NORMANDIE,FORMATION RÉSERVATION,FRANCE,Web,,Union Régionale des Professionnels de Santé Normandie,https://www.billetweb.fr/hygiene-et-asepsie-au-cabinet-dentaire,external,#FF6B6B
-4,URPS OCEAN INDIEN,FORMATION RÉSERVATION,FRANCE,Web,,Union Régionale des Professionnels de Santé Océan Indien,https://urps-chirurgien-dentiste.re/agenda/,external,#FF6B6B
-5,Référentiels BELGE,FORMATION BELGIQUE,BELGIQUE,PDF,,Conseil Supérieur de la Santé Belgique - Document 1,https://archives.dentiste.be/FileFromDatabase.aspx?id=257,download,#FFCC02
-6,Référentiels BELGE,FORMATION BELGIQUE,BELGIQUE,PDF,,Conseil Supérieur de la Santé Belgique - Document 2,https://www.health.belgium.be/sites/default/files/uploads/fields/fpshealth_theme_file/19069789/Recommandations%20relatives%20%C3%A0%20la%20ma%C3%AEtrise%20des%20infections%20lors%20des%20soins%20r%C3%A9alis%C3%A9s%20en%20m%C3%A9decine%20dentaire.%20%28mai%202011%29%20%28CSS%208363%29.pdf,download,#FFCC02
+2,URPS PACA,RÉSERVATION URPS,FRANCE,Web,,Union Régionale des Professionnels de Santé PACA,https://urps-paca-chd.fr/agenda-urps-paca/,external,#FF6B6B
+3,URPS NORMANDIE,RÉSERVATION URPS,FRANCE,Web,,Union Régionale des Professionnels de Santé Normandie,https://www.billetweb.fr/hygiene-et-asepsie-au-cabinet-dentaire,external,#FF6B6B
+4,URPS OCEAN INDIEN,RÉSERVATION URPS,FRANCE,Web,,Union Régionale des Professionnels de Santé Océan Indien,https://urps-chirurgien-dentiste.re/agenda/,external,#FF6B6B
+5,Référentiels BELGE,FORMATION BELGIQUE,BELGIQUE,PDF,,Conseil Supérieur de la Santé Belgique - Document 1,https://www.hgr-css.be/fr/avis/9682/sterilisation-des-dispositifs-medicaux-a-usage-multiple,download,#FFCC02
+6,Référentiels BELGE,FORMATION BELGIQUE,BELGIQUE,PDF,,Conseil Supérieur de la Santé Belgique - Document 2,https://www.hgr-css.be/file/download/e6ab9ba2-c0a0-443e-9108-2cf1e714491a/YDNie6hyNbUKgTsoGRbwmoY758tE5ShQsj0ntP9ziw3d.pdf,download,#FFCC02
 7,PLAN DE STÉRILISATION ARS,LOCAUX HYGIENE PROTECTION,LOCAUX,PDF,,Plan de stérilisation type pour cabinet dentaire,https://www.ctapratique.fr/wp-content/uploads/go-x/u/4ea666aa-b098-4314-88e2-16c8eabb52d7/PLAN-TYPE-SALLE-DE-STERILISATION.pdf,download,#00C7BE
 8,EPI CPIAS,LOCAUX HYGIENE PROTECTION,PROTECTION DU PERSONNEL,PDF,,Équipements de Protection Individuelle - CPIAS,https://urps-paca-chd.fr/wp-content/uploads/2023/08/Les-EPI-1.6-LP.pdf,download,#FF2D92
 9,AES/CPIAS,LOCAUX HYGIENE PROTECTION,PROTECTION DU PERSONNEL,PDF,,Accidents d'Exposition au Sang - CPIAS,https://1beccaab-b9c5-4184-8c2f-4422faafed9e.usrfiles.com/ugd/1becca_30ddaa60df364335b24be923341c2d9e.pdf,download,#FF2D92
@@ -16,7 +16,7 @@ id,title,category,subCategory,type,year,description,url,iconType,color
 15,AIR REPIAS,DASRI AIR EAU,AIR,PDF,,Réseau de Prévention des Infections Associées aux Soins,https://www.sf2h.net/k-stock/data/uploads/2021/03/2021-03-10-Covid-19-traitement-dair-en-cabinet-de-chirugie-dentaire.pdf,download,#2E86AB
 16,QUALITE EAU,DASRI AIR EAU,EAU,PDF,,Contrôle qualité de l'eau - Protocoles,https://1beccaab-b9c5-4184-8c2f-4422faafed9e.usrfiles.com/ugd/1becca_33f8f7fc6007493fa1bb4ccc9112b47f.pdf,download,#2E86AB
 17,TEST EAU,DASRI AIR EAU,EAU,Web,,Tests qualité de l'eau au cabinet dentaire,https://connect.sterisil.com/fastcheck15-1,external,#2E86AB
-18,STAND 2017,PROTOCOLES,PROTOCOLES SALLE DE SOINS,PDF,2017,Présentation stand formation 2017,https://www.sf2h.net/k-stock/data/uploads/2017/06/HY_XXV_PS_versionSF2H.pdf,download,#AF52DE
+18,PRÉCAUTIONS STANDARD 2017,PROTOCOLES,PROTOCOLES SALLE DE SOINS,PDF,2017,Présentation stand formation 2017,https://www.sf2h.net/k-stock/data/uploads/2017/06/HY_XXV_PS_versionSF2H.pdf,download,#AF52DE
 19,FICHES ONCD,PROTOCOLES,PROTOCOLES SALLES DE STERILISATION,PDF,,Ordre National des Chirurgiens-Dentistes - Fiches pratiques,https://www.sfcd.fr//wp-content/uploads/2019/06/ficheshygetstedgs2010.pdf,download,#00C7BE
 20,GUIDE DGS-2011,GUIDES OFFICIELS,GUIDES OFFICIELS,PDF,2011,Guide de prévention des infections - Direction Générale de la Santé,https://www.fncs.org/sites/default/files/pdf/GRILLE_DEVALUAT_DES_CAB_DENTAIRES_oct_2011.pdf,download,#2E86AB
 21,ADF 2015,GUIDES OFFICIELS,GUIDES OFFICIELS,PDF,2015,Association Dentaire Française - Congrès 2015,https://1beccaab-b9c5-4184-8c2f-4422faafed9e.usrfiles.com/ugd/1becca_e92a9588e58b46d68d6921eca203b751.pdf,download,#AF52DE
@@ -37,4 +37,4 @@ id,title,category,subCategory,type,year,description,url,iconType,color
 36,Eco-responsabilité au cabinet dentaire,ECO-RESPONSABLE,,PDF,,Pratiques éco-responsables au cabinet dentaire,https://1beccaab-b9c5-4184-8c2f-4422faafed9e.usrfiles.com/ugd/1becca_a224c2e082754901a7f3b5d9b1dd21b5.pdf,download,#32D74B
 37,POURET MEDICAL,CONSOMMABLES,,Web,,Documentation partenaire Pouret Médical,https://www.pouretmedical.com/product/tuyau-autoclavable/,external,#6AC4DC
 37,CAHIER MAINTENANCE,CONSOMMABLES,,Web,,Cahier de maintenance des équipements,https://boutique.berger-levrault.fr/documents-et-accessoires/sante-social/suivi-medical/bloc-operatoire/bloc-operatoire/cahier-de-maintenance-et-de-controle-qualite-demandes-d-intervention-et-interventions-realisees.html,external,#00C7BE
-38,URPS GRAND-EST,FORMATION RÉSERVATION,FRANCE,Web,,Union Régionale des Professionnels du Grand-Est,https://www.urps-cd-grandest.fr/formations/,external,#FF6B6B
+38,URPS GRAND-EST,RÉSERVATION URPS,FRANCE,Web,,Union Régionale des Professionnels du Grand-Est,https://www.urps-cd-grandest.fr/formations/,external,#FF6B6B
