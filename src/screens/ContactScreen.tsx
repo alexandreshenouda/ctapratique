@@ -270,19 +270,19 @@ const ContactScreen: React.FC = () => {
             <View style={styles.profileDetail}>
               <Ionicons name="medkit" size={18} color={MedicalTheme.primary} style={styles.profileDetailIcon} />
               <Text style={styles.profileDetailText}>
-                Formateur en hygiène et asepsie hospitalière et dentaire
+                Formateur en Hygiène et Asepsie Hospitalière et Dentaire
               </Text>
             </View>
             <View style={styles.profileDetail}>
               <Ionicons name="search" size={18} color={MedicalTheme.primary} style={styles.profileDetailIcon} />
               <Text style={styles.profileDetailText}>
-                Consultant audit en cabinet dentaire et ophtalmologique
+                Consultant Audit et Mise en conformité Cabinet Dentaire & Centre d'Ophtalmologie
               </Text>
             </View>
             <View style={styles.profileDetail}>
               <Ionicons name="school" size={18} color={MedicalTheme.primary} style={styles.profileDetailIcon} />
               <Text style={styles.profileDetailText}>
-                Titulaire de deux diplômes universitaires (DU en stérilisation hospitalière, DIU infections nosocomiales et qualité de soins)
+                Titulaire de deux diplômes universitaires (DU en Stérilisation Hospitalière, DIU Infections Nosocomiales et Qualité de Soins)
               </Text>
             </View>
           </View>
