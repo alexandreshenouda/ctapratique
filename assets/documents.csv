@@ -8,8 +8,8 @@ id,title,category,subCategory,type,year,description,url,iconType,color
 7,PLAN DE STÉRILISATION ARS,LOCAUX HYGIENE PROTECTION,LOCAUX,PDF,,Plan de stérilisation type pour cabinet dentaire,https://www.ctapratique.fr/wp-content/uploads/go-x/u/4ea666aa-b098-4314-88e2-16c8eabb52d7/PLAN-TYPE-SALLE-DE-STERILISATION.pdf,download,#00C7BE
 8,EPI CPIAS,LOCAUX HYGIENE PROTECTION,PROTECTION DU PERSONNEL,PDF,,Équipements de Protection Individuelle - CPIAS,https://urps-paca-chd.fr/wp-content/uploads/2023/08/Les-EPI-1.6-LP.pdf,download,#FF2D92
 9,AES REPIAS,LOCAUX HYGIENE PROTECTION,PROTECTION DU PERSONNEL,PDF,,Accidents d'Exposition au Sang - CPIAS,https://1beccaab-b9c5-4184-8c2f-4422faafed9e.usrfiles.com/ugd/1becca_30ddaa60df364335b24be923341c2d9e.pdf,download,#FF2D92
-10,ANSM,DISPOSITIFS MEDICAUX,UTILISATION DES DM,PDF,,Agence Nationale de Sécurité du Médicament,https://ansm.sante.fr/uploads/2025/07/02/20250702-controle-marche-laveurs-desinfecteurs.pdf,download,#FF2D92
-11,INVS 2009,DISPOSITIFS MEDICAUX,RE-TRAITEMENT DES DM,PDF,2009,Institut de Veille Sanitaire - Rapport 2009,https://www.cd2-conseils.com/wp-content/uploads/2011/03/ste_invs_non-sterilisation-des-pir.pdf,download,#FF3B30
+10,ANSM,DISPOSITIFS MEDICAUX,TRAITEMENT DES D.M.,PDF,,Agence Nationale de Sécurité du Médicament(ANSM),https://ansm.sante.fr/uploads/2025/07/02/20250702-controle-marche-laveurs-desinfecteurs.pdf,download,#FF2D92
+11,INVS 2009,DISPOSITIFS MEDICAUX,TRAITEMENT DES D.M.,PDF,2009,Institut de Veille Sanitaire - Rapport 2009,https://www.cd2-conseils.com/wp-content/uploads/2011/03/ste_invs_non-sterilisation-des-pir.pdf,download,#FF3B30
 12,DECHETS,DASRI AIR EAU,DASRI,PDF,,Gestion des déchets de cabinet dentaire,https://1beccaab-b9c5-4184-8c2f-4422faafed9e.usrfiles.com/ugd/1becca_530f6ebe51e74d65bb703ed58ad1f594.pdf,download,#32D74B
 13,EVALUATION DASRI,DASRI AIR EAU,DASRI,XLSX,,Évaluation gestion DASRI,file://Tableur_check_list_Gestion_DAS_VF.xlsx,download,#32D74B
 14,Déchets de soins à risques infectieux(DASRI),DASRI AIR EAU,DASRI,PDF,,Déchets d'Activités de Soins à Risques Infectieux,https://www.sf2h.net/k-stock/data/uploads/2025/guide_dasri_maj_240725j.pdf,download,#32D74B
