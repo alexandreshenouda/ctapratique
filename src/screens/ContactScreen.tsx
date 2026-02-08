@@ -285,11 +285,6 @@ const ContactScreen: React.FC = () => {
                 Titulaire de deux Diplômes Universitaires                                                                                            (DU en Stérilisation Hospitalière, DIU Infections Nosocomiales et Qualité de Soins)
               </Text>
             </View>
-            <View style={styles.profileDetail}>
-              <Ionicons name="search" size={18} color={MedicalTheme.primary} style={styles.profileDetailIcon} />
-              <Text style={styles.profileDetailText}>
-                Site Internet: www.ctapratique.fr
-              </Text>
           </View>
         </View>
 
