@@ -265,7 +265,7 @@ const ContactScreen: React.FC = () => {
                 resizeMode="cover"
               />
             </View>
-            <Text style={styles.profileName}>Stéphane Sananès</Text>
+            <Text style={styles.profileName}>Stéphane SANANÈS</Text>
             <View style={styles.profileDivider} />
             <View style={styles.profileDetail}>
               <Ionicons name="medkit" size={18} color={MedicalTheme.primary} style={styles.profileDetailIcon} />
