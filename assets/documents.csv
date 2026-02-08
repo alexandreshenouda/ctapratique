@@ -1,8 +1,8 @@
 id,title,category,subCategory,type,year,description,url,iconType,color
 1,Présentation,POWER-POINT,FRANCE,PDF,,PowerPoint formation France,https://www.ctapratique.fr/wp-content/uploads/go-x/u/171bb183-923e-4958-a520-2047a28e31d4/Presentation-compressed.pdf,download,#BF5AF2
-2,URPS PACA,FORMATION RÉSERVATION,FRANCE,Web,,Union Régionale des Professionnels de Santé PACA,https://urps-paca-chd.fr/agenda-urps-paca/,external,#FF6B6B
-3,URPS NORMANDIE,FORMATION RÉSERVATION,FRANCE,Web,,Union Régionale des Professionnels de Santé Normandie,https://www.billetweb.fr/hygiene-et-asepsie-au-cabinet-dentaire,external,#FF6B6B
-4,URPS OCEAN INDIEN,FORMATION RÉSERVATION,FRANCE,Web,,Union Régionale des Professionnels de Santé Océan Indien,https://urps-chirurgien-dentiste.re/agenda/,external,#FF6B6B
+2,URPS PACA,RÉSERVATION URPS,FRANCE,Web,,Union Régionale des Professionnels de Santé PACA,https://urps-paca-chd.fr/agenda-urps-paca/,external,#FF6B6B
+3,URPS NORMANDIE,RÉSERVATION URPS,FRANCE,Web,,Union Régionale des Professionnels de Santé Normandie,https://www.billetweb.fr/hygiene-et-asepsie-au-cabinet-dentaire,external,#FF6B6B
+4,URPS OCEAN INDIEN,RÉSERVATION URPS,FRANCE,Web,,Union Régionale des Professionnels de Santé Océan Indien,https://urps-chirurgien-dentiste.re/agenda/,external,#FF6B6B
 5,Référentiels BELGE,FORMATION BELGIQUE,BELGIQUE,PDF,,Conseil Supérieur de la Santé Belgique - Document 1,https://archives.dentiste.be/FileFromDatabase.aspx?id=257,download,#FFCC02
 6,Référentiels BELGE,FORMATION BELGIQUE,BELGIQUE,PDF,,Conseil Supérieur de la Santé Belgique - Document 2,https://www.hgr-css.be/file/download/e6ab9ba2-c0a0-443e-9108-2cf1e714491a/YDNie6hyNbUKgTsoGRbwmoY758tE5ShQsj0ntP9ziw3d.pdf,download,#FFCC02
 7,PLAN DE STÉRILISATION ARS,LOCAUX HYGIENE PROTECTION,LOCAUX,PDF,,Plan de stérilisation type pour cabinet dentaire,https://www.ctapratique.fr/wp-content/uploads/go-x/u/4ea666aa-b098-4314-88e2-16c8eabb52d7/PLAN-TYPE-SALLE-DE-STERILISATION.pdf,download,#00C7BE
@@ -37,4 +37,4 @@ id,title,category,subCategory,type,year,description,url,iconType,color
 36,Eco-responsabilité au cabinet dentaire,ECO-RESPONSABLE,,PDF,,Pratiques éco-responsables au cabinet dentaire,https://1beccaab-b9c5-4184-8c2f-4422faafed9e.usrfiles.com/ugd/1becca_a224c2e082754901a7f3b5d9b1dd21b5.pdf,download,#32D74B
 37,POURET MEDICAL,CONSOMMABLES,,Web,,Documentation partenaire Pouret Médical,https://www.pouretmedical.com/product/tuyau-autoclavable/,external,#6AC4DC
 37,CAHIER MAINTENANCE,CONSOMMABLES,,Web,,Cahier de maintenance des équipements,https://boutique.berger-levrault.fr/documents-et-accessoires/sante-social/suivi-medical/bloc-operatoire/bloc-operatoire/cahier-de-maintenance-et-de-controle-qualite-demandes-d-intervention-et-interventions-realisees.html,external,#00C7BE
-38,URPS GRAND-EST,FORMATION RÉSERVATION,FRANCE,Web,,Union Régionale des Professionnels du Grand-Est,https://www.urps-cd-grandest.fr/formations/,external,#FF6B6B
+38,URPS GRAND-EST,RÉSERVATION URPS,FRANCE,Web,,Union Régionale des Professionnels du Grand-Est,https://www.urps-cd-grandest.fr/formations/,external,#FF6B6B
