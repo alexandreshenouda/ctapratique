@@ -15,7 +15,7 @@ id,title,category,subCategory,type,year,description,url,iconType,color
 14,Déchets de soins à risques infectieux(DASRI),DASRI AIR EAU,DASRI,PDF,,Déchets d'Activités de Soins à Risques Infectieux,https://www.sf2h.net/k-stock/data/uploads/2025/guide_dasri_maj_240725j.pdf,download,#32D74B
 15,AIR REPIAS,DASRI AIR EAU,GESTION DE L'AIR,PDF,,Réseau de Prévention des Infections Associées aux Soins,https://www.sf2h.net/k-stock/data/uploads/2021/03/2021-03-10-Covid-19-traitement-dair-en-cabinet-de-chirugie-dentaire.pdf,download,#2E86AB
 16,QUALITE EAU (A.R.S.),DASRI AIR EAU,GESTION DE L'EAU,PDF,,Contrôle qualité de l'eau - Protocoles,https://1beccaab-b9c5-4184-8c2f-4422faafed9e.usrfiles.com/ugd/1becca_33f8f7fc6007493fa1bb4ccc9112b47f.pdf,download,#2E86AB
-17,TEST EAU,DASRI AIR EAU,GESTION DE L'EAU,Web,,Tests qualité de l'eau au cabinet dentaire,https://connect.sterisil.com/fastcheck15-1,external,#2E86AB
+17,TEST POUR LA QUALITÉ DE L'EAU,DASRI AIR EAU,GESTION DE L'EAU,Web,,Tests qualité de l'eau au cabinet dentaire,https://connect.sterisil.com/fastcheck15-1,external,#2E86AB
 18,PRÉCAUTIONS STANDARD 2017,PROTOCOLES,PROTOCOLES SALLE DE SOINS,PDF,2017,Précautions standard Juin 2017,https://www.sf2h.net/k-stock/data/uploads/2017/06/HY_XXV_PS_versionSF2H.pdf,download,#AF52DE
 19,FICHES ONCD,PROTOCOLES,PROTOCOLES SALLES DE STERILISATION,PDF,,Ordre National des Chirurgiens-Dentistes - Fiches pratiques,https://www.sfcd.fr//wp-content/uploads/2019/06/ficheshygetstedgs2010.pdf,download,#00C7BE
 20,GUIDE DGS-2011,GUIDES OFFICIELS,GUIDES OFFICIELS,PDF,2011,Guide de prévention des infections - Direction Générale de la Santé,https://www.fncs.org/sites/default/files/pdf/GRILLE_DEVALUAT_DES_CAB_DENTAIRES_oct_2011.pdf,download,#2E86AB
