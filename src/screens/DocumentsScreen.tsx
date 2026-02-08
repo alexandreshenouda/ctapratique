@@ -23,7 +23,7 @@ import MedicalTheme from '../theme/colors';
 // Laissez le tableau vide [] pour masquer la section.
 // ============================================================
 const ANNOUNCEMENTS: string[] = [
-  "Bienvenue ! Les mises à jour sont régulières. Le NOUVEAU GUIDE ADF 2026 sera disponible dans les prochains jours sur le site de l'ADF (https://adf.asso.fr/publications/) --> Pour retrouver un fichier vous devez cliquez sur l'onglet TOUS avant de procéder à votre recherche <--",
+  "Bienvenue ! Les mises à jour sont régulières. Le NOUVEAU GUIDE ADF 2026 sera disponible dans les prochains jours sur le site de l'ADF (https://adf.asso.fr/publications/)"," --> Pour retrouver un fichier vous devez cliquez sur l'onglet TOUS avant de procéder à votre recherche <--",
   // Ajoutez d'autres lignes ici, par exemple :
   // 'Mise à jour des fiches pratiques prévue en mars 2026.',
 ];
