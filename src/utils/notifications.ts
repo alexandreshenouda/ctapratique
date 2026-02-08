@@ -58,9 +58,36 @@ export async function requestNotificationPermission(): Promise<string | null> {
     // Vérifier que le push manager est disponible
     console.log('[Notifications] PushManager disponible:', !!registration.pushManager);
 
-    // Tester le push subscription directement pour un meilleur diagnostic
     console.log('[Notifications] VAPID_KEY (premiers 20 chars):', VAPID_KEY.substring(0, 20) + '...');
+    console.log('[Notifications] VAPID_KEY longueur:', VAPID_KEY.length);
     console.log('[Notifications] messagingSenderId:', FIREBASE_CONFIG.messagingSenderId);
+
+    // --- Diagnostic : tester PushManager.subscribe directement ---
+    try {
+      // Convertir la clé VAPID en Uint8Array
+      const padding = '='.repeat((4 - (VAPID_KEY.length % 4)) % 4);
+      const base64 = (VAPID_KEY + padding).replace(/-/g, '+').replace(/_/g, '/');
+      const rawData = atob(base64);
+      const outputArray = new Uint8Array(rawData.length);
+      for (let i = 0; i < rawData.length; i++) {
+        outputArray[i] = rawData.charCodeAt(i);
+      }
+      console.log('[Notifications] VAPID key décodée, taille:', outputArray.length, 'octets (attendu: 65)');
+
+      console.log('[Notifications] Test direct PushManager.subscribe...');
+      const testSub = await registration.pushManager.subscribe({
+        userVisibleOnly: true,
+        applicationServerKey: outputArray,
+      });
+      console.log('[Notifications] ✅ Push subscription directe réussie!', testSub.endpoint);
+      // Révoquer le test pour laisser Firebase gérer proprement
+      await testSub.unsubscribe();
+    } catch (directError: any) {
+      console.error('[Notifications] ❌ Push subscription directe échouée:', directError.message);
+      console.error('[Notifications] Cela signifie que le push service (FCM) rejette la clé VAPID ou le projet.');
+      throw directError; // Re-throw pour arrêter ici
+    }
+    // --- Fin diagnostic ---
 
     // Obtenir le token FCM
     console.log('[Notifications] Demande du token FCM...');
