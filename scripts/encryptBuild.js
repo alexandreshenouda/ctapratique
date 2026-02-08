@@ -38,7 +38,9 @@ function processDirectory(dirPath) {
         } else if (stat.isFile()) {
             const ext = path.extname(item).toLowerCase();
             // Chiffrer uniquement les fichiers JS et CSS
-            if ((ext === '.js' || ext === '.css') && !item.includes('.encrypted')) {
+            // Ne PAS chiffrer le service worker Firebase (nécessaire pour les notifications push)
+            const isServiceWorker = item === 'firebase-messaging-sw.js';
+            if ((ext === '.js' || ext === '.css') && !item.includes('.encrypted') && !isServiceWorker) {
                 encryptFile(fullPath);
             }
         }
@@ -95,6 +97,39 @@ function createManifestAndIcons() {
         'utf8'
     );
     console.log('  ✓ Manifest créé: manifest.json');
+
+    // Injecter la config Firebase dans le service worker
+    const swPath = path.join(DIST_PATH, 'firebase-messaging-sw.js');
+    if (fs.existsSync(swPath)) {
+        // Lire la config Firebase depuis le fichier source TS
+        const firebaseConfigPath = path.join(__dirname, '../src/config/firebase.config.ts');
+        if (fs.existsSync(firebaseConfigPath)) {
+            const configContent = fs.readFileSync(firebaseConfigPath, 'utf8');
+            // Extraire les valeurs de la config
+            const extractValue = (key) => {
+                const match = configContent.match(new RegExp(`${key}:\\s*['"]([^'"]+)['"]`));
+                return match ? match[1] : '';
+            };
+            const fbConfig = {
+                apiKey: extractValue('apiKey'),
+                authDomain: extractValue('authDomain'),
+                projectId: extractValue('projectId'),
+                storageBucket: extractValue('storageBucket'),
+                messagingSenderId: extractValue('messagingSenderId'),
+                appId: extractValue('appId'),
+            };
+
+            // Remplacer le placeholder dans le service worker
+            let swContent = fs.readFileSync(swPath, 'utf8');
+            swContent = swContent.replace(
+                /const firebaseConfig = self\.__FIREBASE_CONFIG \|\| \{[^}]+\};/s,
+                `const firebaseConfig = ${JSON.stringify(fbConfig, null, 2)};`
+            );
+            fs.writeFileSync(swPath, swContent, 'utf8');
+            console.log('  ✓ Config Firebase injectée dans le service worker');
+        }
+        console.log('  ✓ Service worker préservé (non chiffré): firebase-messaging-sw.js');
+    }
 }
 
 // Créer la page de login

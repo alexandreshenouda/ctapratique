@@ -16,20 +16,20 @@ export interface DocumentData {
 
 // CSV Data
 export const csvData = `id,title,category,subCategory,type,year,description,url,iconType,color
-1,POWERPOINT,FORMATION,FRANCE,PDF,,PowerPoint formation France,https://www.ctapratique.com/_files/ugd/1becca_02f26f91145643be972f55d504e554fd.pdf,download,#BF5AF2
+1,Présentation,FORMATION,FRANCE,PDF,,PowerPoint formation France,https://www.ctapratique.fr/wp-content/uploads/go-x/u/171bb183-923e-4958-a520-2047a28e31d4/Presentation-compressed.pdf,download,#BF5AF2
 2,URPS PACA,FORMATION,FRANCE,Web,,Union Régionale des Professionnels de Santé PACA,https://urps-paca-chd.fr/une-formation-en-hygiene-et-asepsie-pour-securiser-vos-pratiques-professionnelles,external,#FF6B6B
 3,URPS NORM.,FORMATION,FRANCE,Web,,Union Régionale des Professionnels de Santé Normandie,https://www.billetweb.fr/hygiene-et-asepsie-au-cabinet-dentaire,external,#FF6B6B
-4,URPS OCEAN INDIEN,FORMATION,FRANCE,Web,,Union Régionale des Professionnels de Santé Océan Indien,INCONNU,external,#FF6B6B
-5,BELGCSS1,FORMATION,BELGIQUE,PDF,,Conseil Supérieur de la Santé Belgique - Document 1,https://www.ctapratique.com/_files/ugd/1becca_6315a5b357d8454fba5c23ffc1bbf6ce.pdf,download,#FFCC02
-6,BELGCSS2,FORMATION,BELGIQUE,PDF,,Conseil Supérieur de la Santé Belgique - Document 2,https://www.ctapratique.com/_files/ugd/1becca_92a2600191134ed880722cd81a31bada.pdf,download,#FFCC02
-7,PLAN STERIL,LOCAUX HYGIENE PROTECTION,LOCAUX,PDF,,Plan de stérilisation type pour cabinet dentaire,https://www.ctapratique.com/_files/ugd/1becca_d00f4238d88c4b8b80d4ec12a86a601c.pdf,download,#00C7BE
+4,URPS OCEAN INDIEN,FORMATION,FRANCE,Web,,Union Régionale des Professionnels de Santé Océan Indien,https://urps-chirurgien-dentiste.re/agenda/,external,#FF6B6B
+5,Référentiels BELGE,FORMATION,BELGIQUE,PDF,,Conseil Supérieur de la Santé Belgique - Document 1,https://archives.dentiste.be/FileFromDatabase.aspx?id=257,download,#FFCC02
+6,Référentiels BELGE,FORMATION,BELGIQUE,PDF,,Conseil Supérieur de la Santé Belgique - Document 2,https://www.health.belgium.be/sites/default/files/uploads/fields/fpshealth_theme_file/19069789/Recommandations%20relatives%20%C3%A0%20la%20ma%C3%AEtrise%20des%20infections%20lors%20des%20soins%20r%C3%A9alis%C3%A9s%20en%20m%C3%A9decine%20dentaire.%20%28mai%202011%29%20%28CSS%208363%29.pdf,download,#FFCC02
+7,PLAN DE STÉRILISATION ARS,LOCAUX HYGIENE PROTECTION,LOCAUX,PDF,,Plan de stérilisation type pour cabinet dentaire,https://www.ctapratique.fr/wp-content/uploads/go-x/u/4ea666aa-b098-4314-88e2-16c8eabb52d7/PLAN-TYPE-SALLE-DE-STERILISATION.pdf,download,#00C7BE
 8,EPI CPIAS,LOCAUX HYGIENE PROTECTION,PROTECTION DU PERSONNEL,PDF,,Équipements de Protection Individuelle - CPIAS,https://urps-paca-chd.fr/wp-content/uploads/2023/08/Les-EPI-1.6-LP.pdf,download,#FF2D92
 9,AES/CPIAS,LOCAUX HYGIENE PROTECTION,PROTECTION DU PERSONNEL,PDF,,Accidents d'Exposition au Sang - CPIAS,https://1beccaab-b9c5-4184-8c2f-4422faafed9e.usrfiles.com/ugd/1becca_30ddaa60df364335b24be923341c2d9e.pdf,download,#FF2D92
 10,ANSM,DISPOSITIFS MEDICAUX,UTILISATION DES DM,PDF,,Agence Nationale de Sécurité du Médicament,https://ansm.sante.fr/uploads/2025/07/02/20250702-controle-marche-laveurs-desinfecteurs.pdf,download,#FF2D92
 11,INVS 2009,DISPOSITIFS MEDICAUX,RE-TRAITEMENT DES DM,PDF,2009,Institut de Veille Sanitaire - Rapport 2009,https://www.cd2-conseils.com/wp-content/uploads/2011/03/ste_invs_non-sterilisation-des-pir.pdf,download,#FF3B30
 12,DECHETS,DASRI AIR EAU,DASRI,PDF,,Gestion des déchets de cabinet dentaire,https://1beccaab-b9c5-4184-8c2f-4422faafed9e.usrfiles.com/ugd/1becca_530f6ebe51e74d65bb703ed58ad1f594.pdf,download,#32D74B
 13,EVAL DASRI,DASRI AIR EAU,DASRI,XLSX,,Évaluation gestion DASRI,file://Tableur_check_list_Gestion_DAS_VF.xlsx,download,#32D74B
-14,DASRI,DASRI AIR EAU,DASRI,PDF,,Déchets d'Activités de Soins à Risques Infectieux,https://www.ctapratique.com/_files/ugd/12c368_cd8045cc479f4ceb8784c847173d70cc.pdf,download,#32D74B
+14,Déchets de soins à risques infectieux(DASRI),DASRI AIR EAU,DASRI,PDF,,Déchets d'Activités de Soins à Risques Infectieux,https://www.sf2h.net/k-stock/data/uploads/2025/guide_dasri_maj_240725j.pdf,download,#32D74B
 15,AIR REPIAS,DASRI AIR EAU,AIR,PDF,,Réseau de Prévention des Infections Associées aux Soins,https://www.sf2h.net/k-stock/data/uploads/2021/03/2021-03-10-Covid-19-traitement-dair-en-cabinet-de-chirugie-dentaire.pdf,download,#2E86AB
 16,QUALITE EAU,DASRI AIR EAU,EAU,PDF,,Contrôle qualité de l'eau - Protocoles,https://1beccaab-b9c5-4184-8c2f-4422faafed9e.usrfiles.com/ugd/1becca_33f8f7fc6007493fa1bb4ccc9112b47f.pdf,download,#2E86AB
 17,TEST EAU,DASRI AIR EAU,EAU,Web,,Tests qualité de l'eau au cabinet dentaire,https://connect.sterisil.com/fastcheck15-1,external,#2E86AB
@@ -44,14 +44,14 @@ export const csvData = `id,title,category,subCategory,type,year,description,url,
 26,COVID 19,GUIDES OFFICIELS,GUIDES COVID,PDF,,Guide général COVID-19 pour professionnels de santé,https://1beccaab-b9c5-4184-8c2f-4422faafed9e.usrfiles.com/ugd/1becca_9d2e33206ff04344813e0fa949e81362.pdf,download,#FF9500
 27,COVID 2020,GUIDES OFFICIELS,GUIDES COVID,PDF,2020,Protocole sanitaire COVID-19 pour cabinets dentaires,https://www.preventioninfection.fr/?jet_download=318d015454d0678e855c63c057622d33e328688d,download,#FF9500
 28,COVID 2021,GUIDES OFFICIELS,GUIDES COVID,PDF,2021,Mise à jour des protocoles COVID-19,https://www.has-sante.fr/upload/docs/application/pdf/2021-01/p_2021_0015_rr_covid19_soins_bucco_dentaires.pdf,download,#FF9500
-29,ART CD,ARTICLES,,Web,,Article Chirurgiens-Dentistes de France Magazine,https://www.ctapratique.com/copie-de-documentation,external,#5856D6
-30,BLOG,ARTICLES,,Web,,Article Chirurgiens-Dentistes de France Blog,https://www.ctapratique.com/blog,external,#5856D6
-31,INJONCTION ARS,A.R.S,,PDF,,Injonctions Agence Régionale de Santé,https://www.ctapratique.com/_files/ugd/1becca_842b76c60cd047a68fdc517cc8b7b0d4.pdf,download,#FF3B30
+29,Mon article dans le CD Magazine,ARTICLES,,Web,,Article Chirurgiens-Dentistes de France Magazine,https://sygaa.lescdf.fr/user/login?destination=/cdfmag/viewer%3Ffile%3D/cdfmag/file/access/T0JDZFd3My9aVmtzUEsxOVpoVWxlUT09#page=1,external,#5856D6
+30,Mes articles Scientifiques et Techniques,ARTICLES,,Web,,Article Chirurgiens-Dentistes de France Blog,https://www.ctapratique.fr/articles/,external,#5856D6
+31,INJONCTION ARS,A.R.S,,PDF,,Injonctions Agence Régionale de Santé,https://www.ctapratique.fr/wp-content/uploads/go-x/u/39db30d4-cff4-4745-9cc3-572701dcc38d/Exemples-injonctions-ARS.pdf,download,#FF3B30
 32,FICHES ARS/PACA,A.R.S,,PDF,,Formulaire ARS PACA,https://www.paca.ars.sante.fr/system/files/2024-09/Fiches%20Dentistes%20%284%29.pdf,download,#FF3B30
 33,FICHES ARS/ARA,A.R.S,,PDF,,Formulaire ARS Auvergne-Rhône-Alpes,https://1beccaab-b9c5-4184-8c2f-4422faafed9e.usrfiles.com/ugd/1becca_f0154ae7a93a458ca531c00c575f2f05.pdf,download,#FF3B30
 34,VIDEOS,VIDEOS,,Web,,Youtube C ta Pratique,https://www.youtube.com/channel/UCtXx67gUNzknqL-G_Tk_4vQ,external,#BF5AF2
-35,VIDEOS URPS,VIDEOS,,Web,,Video URPS,youtube.com/watch?feature=shared&v=F4RZDH0SanA,external,#BF5AF2
-36,ECO-RESPONSABLE,ECO-RESPONSABLE,,PDF,,Pratiques éco-responsables au cabinet dentaire,https://www.ctapratique.com/_files/ugd/1becca_530f6ebe51e74d65bb703ed58ad1f594.pdf,download,#32D74B
+35,VIDEOS URPS,VIDEOS,,Web,,Video URPS,https://www.ctapratique.fr/videos/,external,#BF5AF2
+36,Eco-responsabilité au cabinet dentaire,ECO-RESPONSABLE,,PDF,,Pratiques éco-responsables au cabinet dentaire,https://1beccaab-b9c5-4184-8c2f-4422faafed9e.usrfiles.com/ugd/1becca_a224c2e082754901a7f3b5d9b1dd21b5.pdf,download,#32D74B
 37,POURET MEDICAL,CONSOMMABLES,,Web,,Documentation partenaire Pouret Médical,https://www.pouretmedical.com/product/tuyau-autoclavable/,external,#6AC4DC
 37,CAHIER MAINTENANCE,CONSOMMABLES,,Web,,Cahier de maintenance des équipements,https://boutique.berger-levrault.fr/documents-et-accessoires/sante-social/suivi-medical/bloc-operatoire/bloc-operatoire/cahier-de-maintenance-et-de-controle-qualite-demandes-d-intervention-et-interventions-realisees.html,external,#00C7BE`;
 

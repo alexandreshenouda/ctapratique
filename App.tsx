@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
@@ -9,10 +9,18 @@ import FormationScreen from './src/screens/FormationScreen';
 import DocumentsScreen from './src/screens/DocumentsScreen';
 import ContactScreen from './src/screens/ContactScreen';
 import MedicalTheme from './src/theme/colors';
+import { initNotifications } from './src/utils/notifications';
 
 const Tab = createBottomTabNavigator();
 
 export default function App() {
+  // Initialiser les notifications push au démarrage
+  useEffect(() => {
+    initNotifications().catch((err) =>
+      console.warn('[App] Erreur init notifications:', err)
+    );
+  }, []);
+
   return (
     <NavigationContainer>
       <StatusBar style="auto" />
