@@ -214,6 +214,21 @@ const ContactScreen: React.FC = () => {
       label: 'Téléphone',
       value: '06.73.84.77.66',
       action: handlePhonePress,
+    },
+    {
+      icon: 'globe' as const,
+      label: 'Site web',
+      value: 'www.ctapratique.fr',
+      action: () => {
+        const url = 'https://www.ctapratique.fr/';
+        if (Platform.OS === 'web') {
+          window.open(url, '_blank');
+        } else {
+          Linking.openURL(url).catch(() =>
+            Alert.alert('Erreur', 'Impossible d\'ouvrir le site web')
+          );
+        }
+      },
     }
   ];
 
