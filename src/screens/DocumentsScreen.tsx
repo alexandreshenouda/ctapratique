@@ -10,6 +10,7 @@ import {
   Alert,
   Linking,
   Image,
+  useWindowDimensions,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
@@ -212,6 +213,8 @@ const DocumentOrGroupItem: React.FC<DocumentOrGroupItemProps> = ({ item, onPress
 };
 
 const DocumentsScreen: React.FC = () => {
+  const { width } = useWindowDimensions();
+  const isMobile = width < 768;
   const [selectedCategory, setSelectedCategory] = useState('Tous');
   const [selectedCategoryForSubCat, setSelectedCategoryForSubCat] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
@@ -439,15 +442,17 @@ const DocumentsScreen: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Logo */}
-      <View style={styles.logoContainer}>
-        <Image 
-          source={require('../../assets/logo.jpg')} 
-          style={styles.logoImage}
-          resizeMode="contain"
-        />
-      </View>
-      
+      {/* Logo (non-mobile only) */}
+      {!isMobile && (
+        <View style={styles.logoContainer}>
+          <Image
+            source={require('../../assets/logo.jpg')}
+            style={styles.logoImage}
+            resizeMode="contain"
+          />
+        </View>
+      )}
+
       {/* Header */}
       <View style={styles.header}>
         {selectedSubCategory ? (
@@ -480,10 +485,22 @@ const DocumentsScreen: React.FC = () => {
               <Text style={styles.headerSubtitle}>Sous-catégories</Text>
             </View>
           </View>
+        ) : isMobile ? (
+          <View style={styles.headerMain}>
+            <Image
+              source={require('../../assets/logo.jpg')}
+              style={styles.headerLogo}
+              resizeMode="contain"
+            />
+            <View style={styles.headerTextBlock}>
+              <Text style={styles.headerTitle}>Référentiels & Fiches pratiques</Text>
+              <Text style={styles.headerSubtitle}>Hygiène, Stérilisation et Asepsie Dentaire</Text>
+            </View>
+          </View>
         ) : (
           <>
-            <Text style={styles.headerTitle}>Référentiels & Fiches pratiques</Text>
-            <Text style={styles.headerSubtitle}>Hygiène, Stérilisation et Asepsie Dentaire</Text>
+            <Text style={[styles.headerTitle, { textAlign: 'center' }]}>Référentiels & Fiches pratiques</Text>
+            <Text style={[styles.headerSubtitle, { textAlign: 'center' }]}>Hygiène, Stérilisation et Asepsie Dentaire</Text>
           </>
         )}
       </View>
@@ -739,21 +756,34 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: MedicalTheme.primary,
-    padding: 20,
+    padding: 16,
     paddingTop: 10,
   },
+  headerMain: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  headerLogo: {
+    width: 55,
+    height: 37,
+    borderRadius: 4,
+    marginRight: 12,
+  },
+  headerTextBlock: {
+    flex: 1,
+  },
   headerTitle: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: 'bold',
     color: 'white',
-    textAlign: 'center',
+    textAlign: 'left',
   },
   headerSubtitle: {
-    fontSize: 14,
+    fontSize: 13,
     color: 'white',
-    textAlign: 'center',
+    textAlign: 'left',
     opacity: 0.9,
-    marginTop: 4,
+    marginTop: 2,
   },
   announcementsContainer: {
     backgroundColor: '#EAF4FE',
