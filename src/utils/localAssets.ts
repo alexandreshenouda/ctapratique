@@ -6,9 +6,9 @@ import { Asset } from 'expo-asset';
 // Mapping des fichiers locaux (généré automatiquement)
 // Pour ajouter un fichier : placez-le dans assets/local-files/ et relancez 'npm run generate-local-assets'
 const LOCAL_ASSETS: { [key: string]: any } = {
-  'f_fich_ster_S240917_v2.0.docx': require('../../assets/local-files/f_fich_ster_S240917_v2.0.docx'),
   'F_trac_entr_C240917_V2.0.xlsx': require('../../assets/local-files/F_trac_entr_C240917_V2.0.xlsx'),
   'Tableur_check_list_Gestion_DAS_VF.xlsx': require('../../assets/local-files/Tableur_check_list_Gestion_DAS_VF.xlsx'),
+  'f_fich_ster_S240917_v2.0.docx': require('../../assets/local-files/f_fich_ster_S240917_v2.0.docx'),
 };
 
 /**

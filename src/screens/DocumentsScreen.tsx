@@ -10,7 +10,6 @@ import {
   Alert,
   Linking,
   Image,
-  useWindowDimensions,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
@@ -213,8 +212,6 @@ const DocumentOrGroupItem: React.FC<DocumentOrGroupItemProps> = ({ item, onPress
 };
 
 const DocumentsScreen: React.FC = () => {
-  const { width } = useWindowDimensions();
-  const isMobile = width < 768;
   const [selectedCategory, setSelectedCategory] = useState('Tous');
   const [selectedCategoryForSubCat, setSelectedCategoryForSubCat] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
@@ -442,18 +439,8 @@ const DocumentsScreen: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Logo (non-mobile only) */}
-      {!isMobile && (
-        <View style={styles.logoContainer}>
-          <Image
-            source={require('../../assets/logo.jpg')}
-            style={styles.logoImage}
-            resizeMode="contain"
-          />
-        </View>
-      )}
-
-      {/* Header */}
+      {/* [REQ-003] Header: logo always inline with title on all screen sizes */}
+      {/* [REQ-002] Header stays fixed outside ScrollView */}
       <View style={styles.header}>
         {selectedSubCategory ? (
           <View style={styles.groupHeader}>
@@ -485,7 +472,7 @@ const DocumentsScreen: React.FC = () => {
               <Text style={styles.headerSubtitle}>Sous-catégories</Text>
             </View>
           </View>
-        ) : isMobile ? (
+        ) : (
           <View style={styles.headerMain}>
             <Image
               source={require('../../assets/logo.jpg')}
@@ -497,27 +484,11 @@ const DocumentsScreen: React.FC = () => {
               <Text style={styles.headerSubtitle}>Hygiène, Stérilisation et Asepsie Dentaire</Text>
             </View>
           </View>
-        ) : (
-          <>
-            <Text style={[styles.headerTitle, { textAlign: 'center' }]}>Référentiels & Fiches pratiques</Text>
-            <Text style={[styles.headerSubtitle, { textAlign: 'center' }]}>Hygiène, Stérilisation et Asepsie Dentaire</Text>
-          </>
         )}
       </View>
 
-      {/* Announcements */}
-      {ANNOUNCEMENTS.length > 0 && (
-        <View style={styles.announcementsContainer}>
-          {ANNOUNCEMENTS.map((text, index) => (
-            <View key={index} style={styles.announcementRow}>
-              <Ionicons name="information-circle" size={18} color={MedicalTheme.primary} style={styles.announcementIcon} />
-              <Text style={styles.announcementText}>{text}</Text>
-            </View>
-          ))}
-        </View>
-      )}
-
-      {/* Search Bar */}
+      {/* [REQ-001] Search bar stays fixed, above announcements */}
+      {/* [REQ-002] Search bar outside ScrollView = fixed during scroll */}
       <View style={styles.searchContainer}>
         <View style={styles.searchBar}>
           <Ionicons name="search" size={20} color="#666" />
@@ -537,7 +508,17 @@ const DocumentsScreen: React.FC = () => {
       </View>
 
       <ScrollView style={styles.content}>
-        {/* Categories */}
+        {/* [REQ-001] Announcements now inside ScrollView — scrolls with content */}
+        {ANNOUNCEMENTS.length > 0 && (
+          <View style={styles.announcementsContainer}>
+            {ANNOUNCEMENTS.map((text, index) => (
+              <View key={index} style={styles.announcementRow}>
+                <Ionicons name="information-circle" size={18} color={MedicalTheme.primary} style={styles.announcementIcon} />
+                <Text style={styles.announcementText}>{text}</Text>
+              </View>
+            ))}
+          </View>
+        )}        {/* Categories */}
         <View style={styles.categoriesSection}>
           <Text style={styles.sectionTitle}>Catégories</Text>
           {Platform.OS === 'web' ? (
@@ -730,30 +711,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: MedicalTheme.background,
   },
-  logoContainer: {
-    paddingVertical: 15,
-    alignItems: 'center',
-    backgroundColor: '#fff',
-  },
-  logoImage: {
-    width: 120,
-    height: 80,
-    borderRadius: 8,
-    ...Platform.select({
-      ios: {
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
-      },
-      android: {
-        elevation: 3,
-      },
-      default: {
-        boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
-      },
-    }),
-  },
   header: {
     backgroundColor: MedicalTheme.primary,
     padding: 16,
@@ -762,6 +719,7 @@ const styles = StyleSheet.create({
   headerMain: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
   },
   headerLogo: {
     width: 55,
@@ -770,18 +728,18 @@ const styles = StyleSheet.create({
     marginRight: 12,
   },
   headerTextBlock: {
-    flex: 1,
+    flexShrink: 1,
   },
   headerTitle: {
     fontSize: 20,
     fontWeight: 'bold',
     color: 'white',
-    textAlign: 'left',
+    textAlign: 'center',
   },
   headerSubtitle: {
     fontSize: 13,
     color: 'white',
-    textAlign: 'left',
+    textAlign: 'center',
     opacity: 0.9,
     marginTop: 2,
   },
